@@ -139,21 +139,24 @@ public class InicioSesion extends javax.swing.JFrame {
         return matcher.find() && matcher2.find();
     }
     private void btnIniciarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIniciarSesionActionPerformed
-        BaseDeDatos b = new BaseDeDatos();
-        b.conectar("login", "root", "");
-        ///Aqui se busca en la base de datos si existe un campo con el mismo usuario y contraseña, de ser asi guarda su id
-        ResultSet r = b.cosultar("SELECT* FROM usuarios "
-                + "WHERE contra=\"" + new String(txfContra.getPassword()) 
-                + "\" AND usuario=\"" + txfUsuario.getText() + "\"");
         int id = 0;
+        BaseDeDatos b = new BaseDeDatos();
         try {
-            if (r.next()) {
+            if (!b.conectar("login", "root", "")){
+                JOptionPane.showMessageDialog(this, "Error al conectarse con la base de datos", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+            ///Aqui se busca en la base de datos si existe un campo con el mismo usuario y contraseña, de ser asi guarda su id
+            ResultSet r = b.cosultar("SELECT* FROM usuarios "
+                    + "WHERE contra=\"" + new String(txfContra.getPassword()) 
+                    + "\" AND usuario=\"" + txfUsuario.getText() + "\"");
+            
+            if (r != null&& r.next()) {
                 id = r.getInt(1);
             }
         } catch (SQLException ex) {
             Logger.getLogger(InicioSesion.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+        System.out.println(id);
         ///En caso de que el usuario y contraseña concuerden se abre el form principal, si no muestra un mensage de error
         if (id > 0) {
             
