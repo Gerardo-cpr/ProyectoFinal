@@ -26,9 +26,9 @@ public class MenuPrincipal extends javax.swing.JFrame {
         this.setLocationRelativeTo(null);
         this.usuario = usuario;
     }
-    public void addFilaTabla(String nombre, int tiempoRestantePrestamo, float siguientePago, float montoRestante) {
+    public void addFilaTabla(String nombre, float totalPrestamo, int tiempoRestantePrestamo, float siguientePago, float montoRestante) {
         DefaultTableModel model = (DefaultTableModel) tablaDeudores.getModel();
-        model.addRow(new Object[]{nombre, tiempoRestantePrestamo, siguientePago, montoRestante});
+        model.addRow(new Object[]{nombre, totalPrestamo, tiempoRestantePrestamo, siguientePago, montoRestante});
     }
     //Esta funcion obtiene los datos de la base de datos que contiene informacion de los deudores y la llena
     public final void actualizarTabla() {
@@ -37,7 +37,11 @@ public class MenuPrincipal extends javax.swing.JFrame {
             baseDeDatos.conectar("prestamos", "root", "");
             ResultSet respuesta = baseDeDatos.cosultar("SELECT* FROM deudores");
             while(respuesta.next()) {
-                addFilaTabla(respuesta.getString(2), respuesta.getInt(3), respuesta.getFloat(4), respuesta.getFloat(5));
+                int mesesPagados = respuesta.getInt("meses_pagados");
+                int tiempoPrestamo = respuesta.getInt("tiempo_prestamo");
+                float totalPrestado = respuesta.getFloat("total_prestado");
+                float montoRestante = respuesta.getFloat("monto_restante");
+                addFilaTabla(respuesta.getString(2), totalPrestado, tiempoPrestamo - mesesPagados, totalPrestado / tiempoPrestamo, respuesta.getFloat("total_prestado"));
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -70,14 +74,14 @@ public class MenuPrincipal extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Deudor", "Tiempo restante de prestamo", "Monto del siguiente pago", "Monto total deuda restante"
+                "Deudor", "Total prestado", "Tiempo restante de prestamo", "Monto del siguiente pago", "Monto total deuda restante"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.Integer.class, java.lang.Float.class, java.lang.Float.class
+                java.lang.String.class, java.lang.Float.class, java.lang.Integer.class, java.lang.Float.class, java.lang.Float.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false
+                false, false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
