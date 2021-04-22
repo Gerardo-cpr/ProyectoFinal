@@ -41,8 +41,9 @@ public class MenuPrincipal extends javax.swing.JFrame {
                 int tiempoPrestamo = respuesta.getInt("tiempo_prestamo");
                 float totalPrestado = respuesta.getFloat("total_prestado");
                 float montoRestante = respuesta.getFloat("monto_restante");
-                addFilaTabla(respuesta.getString(2), totalPrestado, tiempoPrestamo - mesesPagados, totalPrestado / tiempoPrestamo, respuesta.getFloat("total_prestado"));
-            }
+                addFilaTabla(respuesta.getString(2), totalPrestado, tiempoPrestamo - mesesPagados, totalPrestado / tiempoPrestamo, 
+                        totalPrestado - ((totalPrestado / tiempoPrestamo) * mesesPagados));
+                }
         } catch (SQLException e) {
             e.printStackTrace();
             JOptionPane.showMessageDialog(this, "Error al conectarse con la base de datos", "Error", JOptionPane.ERROR_MESSAGE);
