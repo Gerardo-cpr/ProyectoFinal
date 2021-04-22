@@ -24,31 +24,24 @@ public class BaseDeDatos {
         }
     }
     
-    public void conectar(String nombre, String usuario, String contra) {
-        if (nombre.isEmpty() || usuario.isEmpty()) {
-        }
-        try {
+    public boolean conectar(String nombre, String usuario, String contra) throws SQLException {
+        if (!(nombre.isEmpty() && usuario.isEmpty())) {
             conexion = DriverManager.getConnection(url + nombre, usuario, contra);
             Statement s = conexion.createStatement();
             conectado = true;
-        } catch (SQLException e) {
-            e.printStackTrace();
-            System.out.println("ERROR AL CONECTARSE A LA BASE DE DATOS");
         }
+        return conectado;
     }
-    public ResultSet cosultar(String consulta){
+    public ResultSet cosultar(String consulta) throws SQLException{
         if (conectado) {
-            try {
-                return conexion.createStatement().executeQuery(consulta);
-            }   catch(SQLException e) {
-                e.printStackTrace();
-                System.out.println("No se puedo realizar la consulta");
-                return null;
-            }
+            return conexion.createStatement().executeQuery(consulta);
         } else {
             System.out.println("No se encuentra conectado");
             return null;
         }
+    }
+    public void desconectar() throws SQLException {
+        conexion.close();
     }
     public Object getCampo()  {
         return null;
