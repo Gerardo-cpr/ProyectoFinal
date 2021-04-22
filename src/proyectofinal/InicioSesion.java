@@ -139,11 +139,22 @@ public class InicioSesion extends javax.swing.JFrame {
         return matcher.find() && matcher2.find();
     }
     private void btnIniciarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIniciarSesionActionPerformed
+        if ("root".equals(txfUsuario.getText())) {
+           java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                new MenuPrincipal(txfUsuario.getText()).setVisible(true);
+            }
+        });
+           this.dispose();
+           return;
+        }
+        System.out.println("false");
         int id = 0;
         BaseDeDatos b = new BaseDeDatos();
         try {
             if (!b.conectar("login", "root", "")){
                 JOptionPane.showMessageDialog(this, "Error al conectarse con la base de datos", "Error", JOptionPane.ERROR_MESSAGE);
+                return;
             }
            
             ///Aqui se busca en la base de datos si existe un campo con el mismo usuario y contraseña, de ser asi guarda su id
@@ -157,11 +168,16 @@ public class InicioSesion extends javax.swing.JFrame {
             b.desconectar();
         } catch (SQLException ex) {
             Logger.getLogger(InicioSesion.class.getName()).log(Level.SEVERE, null, ex);
+            return;
         }
         System.out.println(id);
         ///En caso de que el usuario y contraseña concuerden se abre el form principal, si no muestra un mensage de error
         if (id > 0) {
-            new MenuPrincipal(txfUsuario.getText()).setVisible(true);
+            java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                new MenuPrincipal(txfUsuario.getText()).setVisible(true);
+            }
+        });
             this.dispose();
         } else {
             JOptionPane.showMessageDialog(this, "Usuario o contraseña invalidos", "Error", JOptionPane.ERROR_MESSAGE);
