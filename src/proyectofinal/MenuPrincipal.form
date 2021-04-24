@@ -234,7 +234,7 @@
     <Component class="javax.swing.JLabel" name="lblCargando">
       <Properties>
         <Property name="horizontalAlignment" type="int" value="0"/>
-        <Property name="text" type="java.lang.String" value="Da click en el deudor para mas informacion"/>
+        <Property name="text" type="java.lang.String" value="Da click en el cliente para mas informacion"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JProgressBar" name="barraDeProgreso">

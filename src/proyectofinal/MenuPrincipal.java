@@ -40,7 +40,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
         new AsyncDB("SELECT* FROM clientes", clientesDB, usuarioDB, contrasenaDB, this, barraDeProgreso).start();
     }
     public void finalRellenoTabla() {
-       lblCargando.setText("Da click en el deudor para mas informacion");
+       lblCargando.setText("Da click en el cliente para mas informacion");
     }
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -148,7 +148,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
         jLabel1.setText("Prestamos");
 
         lblCargando.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblCargando.setText("Da click en el deudor para mas informacion");
+        lblCargando.setText("Da click en el cliente para mas informacion");
 
         jMenu7.setText("Sesión");
 
