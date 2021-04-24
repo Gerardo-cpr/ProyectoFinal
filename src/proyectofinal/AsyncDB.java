@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package proyectofinal;
 
 import java.sql.*;
@@ -40,12 +35,15 @@ public class AsyncDB extends Thread {
             progreso.setValue(50);
             respuesta = db.cosultar(consulta);
             progreso.setValue(75);
+            menu.borrarTabla();
             while(respuesta.next()) {
+                String nombre = respuesta.getString("nombre");
                 int mesesPagados = respuesta.getInt("meses_pagados");
                 int tiempoPrestamo = respuesta.getInt("tiempo_prestamo");
                 float totalPrestado = respuesta.getFloat("total_prestado");
                 float montoRestante = respuesta.getFloat("monto_restante");
-                menu.addFilaTabla(respuesta.getString("nombre"), totalPrestado, tiempoPrestamo - mesesPagados, totalPrestado / tiempoPrestamo, 
+                
+                menu.addFilaTabla(nombre, totalPrestado, tiempoPrestamo - mesesPagados, totalPrestado / tiempoPrestamo, 
                         totalPrestado - ((totalPrestado / tiempoPrestamo) * mesesPagados));
                 }
             db.desconectar();

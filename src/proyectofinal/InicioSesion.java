@@ -1,7 +1,5 @@
 package proyectofinal;
 
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 import javax.swing.JOptionPane;	
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -17,6 +15,7 @@ public class InicioSesion extends javax.swing.JFrame {
     private final String usuariosDB = "sql5407871";
     private final String usuarioDB = "sql5407871";
     private final String contrasenaDB = "Mt1I2E9GtN";
+    private int usuarioID = 0;
     public InicioSesion() {
         initComponents();
         setLocationRelativeTo(null);
@@ -136,7 +135,7 @@ public class InicioSesion extends javax.swing.JFrame {
         if ("root".equals(txfUsuario.getText())) {
            java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new MenuPrincipal(txfUsuario.getText()).setVisible(true);
+                new MenuPrincipal(usuarioID).setVisible(true);
             }
         });
            this.dispose();
@@ -158,18 +157,18 @@ public class InicioSesion extends javax.swing.JFrame {
             
             if (r != null&& r.next()) {
                 id = r.getInt(1);
+                usuarioID = id;
             }
             b.desconectar();
         } catch (SQLException ex) {
             Logger.getLogger(InicioSesion.class.getName()).log(Level.SEVERE, null, ex);
             return;
         }
-        System.out.println(id);
         ///En caso de que el usuario y contraseña concuerden se abre el form principal, si no muestra un mensage de error
         if (id > 0) {
             java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new MenuPrincipal(txfUsuario.getText()).setVisible(true);
+                new MenuPrincipal(usuarioID).setVisible(true);
             }
         });
             this.dispose();

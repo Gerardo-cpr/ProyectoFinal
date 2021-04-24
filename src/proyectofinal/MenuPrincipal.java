@@ -16,7 +16,7 @@ import java.sql.ResultSet;
 public class MenuPrincipal extends javax.swing.JFrame {
 
     //nombre del usuario que previamente inicio sesion
-    private String usuario;
+    private final int usuarioID;
     private final String clientesDB = "sql5407871";
     private final String usuarioDB = "sql5407871";
     private final String contrasenaDB = "Mt1I2E9GtN";
@@ -24,10 +24,15 @@ public class MenuPrincipal extends javax.swing.JFrame {
     /**
      * Creates new form MenuPrincipal
      */
-    public MenuPrincipal(String usuario) {
+    public MenuPrincipal(int usuarioID) {
         initComponents();
         this.setLocationRelativeTo(null);
-        this.usuario = usuario;
+        this.usuarioID = usuarioID;
+    }
+    
+    public void borrarTabla() {
+        DefaultTableModel model = (DefaultTableModel) tablaDeudores.getModel();
+        model.setRowCount(0);
     }
     //Esta funcion añade una fila a la tabla de clientes
     public void addFilaTabla(String nombre, float totalPrestamo, int tiempoRestantePrestamo, float siguientePago, float montoRestante) {
@@ -131,11 +136,6 @@ public class MenuPrincipal extends javax.swing.JFrame {
         tablaDeudores.getTableHeader().setResizingAllowed(false);
         tablaDeudores.getTableHeader().setReorderingAllowed(false);
         tablaDeudores.setVerifyInputWhenFocusTarget(false);
-        tablaDeudores.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
-            public void mouseMoved(java.awt.event.MouseEvent evt) {
-                tablaDeudoresMouseMoved(evt);
-            }
-        });
         tablaDeudores.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tablaDeudoresMouseClicked(evt);
@@ -247,10 +247,6 @@ public class MenuPrincipal extends javax.swing.JFrame {
         this.dispose();
         new InicioSesion().setVisible(true);
     }//GEN-LAST:event_menuCerrarSesionActionPerformed
-
-    private void tablaDeudoresMouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaDeudoresMouseMoved
-
-    }//GEN-LAST:event_tablaDeudoresMouseMoved
 
     private void tablaDeudoresMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaDeudoresMouseClicked
         int numeroFila = (int)Math.floor(evt.getY() / 48);
