@@ -36,22 +36,11 @@ public class MenuPrincipal extends javax.swing.JFrame {
     }
     //Esta funcion obtiene los datos de la base de datos que contiene informacion de los deudores y la llena
     public final void actualizarTabla() {
-        BaseDeDatos baseDeDatos = new BaseDeDatos();
-        try {
-            baseDeDatos.conectar(clientesDB, usuarioDB, contrasenaDB);
-            ResultSet respuesta = baseDeDatos.cosultar("SELECT* FROM clientes");
-            while(respuesta.next()) {
-                int mesesPagados = respuesta.getInt("meses_pagados");
-                int tiempoPrestamo = respuesta.getInt("tiempo_prestamo");
-                float totalPrestado = respuesta.getFloat("total_prestado");
-                float montoRestante = respuesta.getFloat("monto_restante");
-                addFilaTabla(respuesta.getString("nombre"), totalPrestado, tiempoPrestamo - mesesPagados, totalPrestado / tiempoPrestamo, 
-                        totalPrestado - ((totalPrestado / tiempoPrestamo) * mesesPagados));
-                }
-        } catch (SQLException e) {
-            e.printStackTrace();
-            JOptionPane.showMessageDialog(this, "Error al conectarse con la base de datos", "Error", JOptionPane.ERROR_MESSAGE);
-        }
+        lblCargando.setText("Cargando");
+        new AsyncDB("SELECT* FROM clientes", clientesDB, usuarioDB, contrasenaDB, this, barraDeProgreso).start();
+    }
+    public void finalRellenoTabla() {
+       lblCargando.setText("Da click en el deudor para mas informacion");
     }
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -70,10 +59,11 @@ public class MenuPrincipal extends javax.swing.JFrame {
         jScrollPane2 = new javax.swing.JScrollPane();
         tablaDeudores = new javax.swing.JTable();
         jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
+        lblCargando = new javax.swing.JLabel();
+        barraDeProgreso = new javax.swing.JProgressBar();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu7 = new javax.swing.JMenu();
-        jMenuItem2 = new javax.swing.JMenuItem();
+        menuCerrarSesion = new javax.swing.JMenuItem();
         jMenu1 = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
         jMenu10 = new javax.swing.JMenu();
@@ -109,6 +99,8 @@ public class MenuPrincipal extends javax.swing.JFrame {
             }
         });
 
+        tablaDeudores.setBorder(javax.swing.BorderFactory.createMatteBorder(2, 2, 2, 2, new java.awt.Color(0, 0, 0)));
+        tablaDeudores.setFont(new java.awt.Font("Lucida Grande", 1, 18)); // NOI18N
         tablaDeudores.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -132,25 +124,41 @@ public class MenuPrincipal extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        tablaDeudores.setRowSelectionAllowed(false);
+        tablaDeudores.setToolTipText("");
+        tablaDeudores.setGridColor(new java.awt.Color(51, 153, 255));
+        tablaDeudores.setRowHeight(48);
+        tablaDeudores.setShowGrid(false);
+        tablaDeudores.getTableHeader().setResizingAllowed(false);
+        tablaDeudores.getTableHeader().setReorderingAllowed(false);
+        tablaDeudores.setVerifyInputWhenFocusTarget(false);
+        tablaDeudores.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+            public void mouseMoved(java.awt.event.MouseEvent evt) {
+                tablaDeudoresMouseMoved(evt);
+            }
+        });
+        tablaDeudores.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tablaDeudoresMouseClicked(evt);
+            }
+        });
         jScrollPane2.setViewportView(tablaDeudores);
 
         jLabel1.setFont(new java.awt.Font("Verdana", 1, 24)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("Prestamos");
 
-        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel2.setText("Da click en el deudor para mas informacion");
+        lblCargando.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblCargando.setText("Da click en el deudor para mas informacion");
 
         jMenu7.setText("Sesión");
 
-        jMenuItem2.setText("Cerrar sesión");
-        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+        menuCerrarSesion.setText("Cerrar sesión");
+        menuCerrarSesion.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem2ActionPerformed(evt);
+                menuCerrarSesionActionPerformed(evt);
             }
         });
-        jMenu7.add(jMenuItem2);
+        jMenu7.add(menuCerrarSesion);
 
         jMenuBar1.add(jMenu7);
 
@@ -194,20 +202,26 @@ public class MenuPrincipal extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 884, Short.MAX_VALUE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 888, Short.MAX_VALUE)
                 .addContainerGap())
             .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(lblCargando, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(107, 107, 107)
+                .addComponent(barraDeProgreso, javax.swing.GroupLayout.PREFERRED_SIZE, 730, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(33, 33, 33)
+                .addGap(22, 22, 22)
                 .addComponent(jLabel1)
                 .addGap(18, 18, 18)
-                .addComponent(jLabel2)
+                .addComponent(lblCargando)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(barraDeProgreso, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 413, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 392, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         pack();
@@ -218,12 +232,8 @@ public class MenuPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
-        actualizarTabla();
+       actualizarTabla();
     }//GEN-LAST:event_formWindowOpened
-
-    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jMenuItem2ActionPerformed
 
     private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
         // TODO add your handling code here:
@@ -233,11 +243,24 @@ public class MenuPrincipal extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jMenuItem6ActionPerformed
 
+    private void menuCerrarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuCerrarSesionActionPerformed
+        this.dispose();
+        new InicioSesion().setVisible(true);
+    }//GEN-LAST:event_menuCerrarSesionActionPerformed
+
+    private void tablaDeudoresMouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaDeudoresMouseMoved
+
+    }//GEN-LAST:event_tablaDeudoresMouseMoved
+
+    private void tablaDeudoresMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaDeudoresMouseClicked
+        int numeroFila = (int)Math.floor(evt.getY() / 48);
+    }//GEN-LAST:event_tablaDeudoresMouseClicked
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JProgressBar barraDeProgreso;
     private javax.swing.JCheckBoxMenuItem jCheckBoxMenuItem1;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu10;
     private javax.swing.JMenu jMenu3;
@@ -250,12 +273,13 @@ public class MenuPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuBar jMenuBar2;
     private javax.swing.JMenuBar jMenuBar3;
     private javax.swing.JMenuItem jMenuItem1;
-    private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JMenuItem jMenuItem5;
     private javax.swing.JMenuItem jMenuItem6;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JLabel lblCargando;
+    private javax.swing.JMenuItem menuCerrarSesion;
     private javax.swing.JTable tablaDeudores;
     // End of variables declaration//GEN-END:variables
 }
