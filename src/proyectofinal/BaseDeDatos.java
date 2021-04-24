@@ -10,7 +10,7 @@ import java.sql.Statement;
 import java.sql.ResultSet;
 
 public class BaseDeDatos {
-    private String url = "jdbc:mysql://127.0.0.1/";
+    private String url = "jdbc:mysql://sql5.freemysqlhosting.net/";
     private Connection conexion;
     private boolean conectado;
     

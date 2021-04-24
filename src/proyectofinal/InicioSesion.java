@@ -14,6 +14,9 @@ import java.util.logging.Logger;
  */
 public class InicioSesion extends javax.swing.JFrame {
 
+    private final String usuariosDB = "sql5407871";
+    private final String usuarioDB = "sql5407871";
+    private final String contrasenaDB = "Mt1I2E9GtN";
     public InicioSesion() {
         initComponents();
         setLocationRelativeTo(null);
@@ -129,15 +132,7 @@ public class InicioSesion extends javax.swing.JFrame {
             btnIniciarSesion.setEnabled(true);
         }
     }//GEN-LAST:event_txfUsuarioKeyTyped
-    
-    // Devuelve true si las entradas son validas y false si no
-    private boolean comprobarEntradas(String e1, String e2) {
-        Pattern pattern = Pattern.compile("^(?=.{8,20}$)(?![_.])(?!.*[_.]{2})[a-zA-Z0-9._]+(?<![_.])$");
-        Pattern pattern2 = Pattern.compile("\"^(?=.*[A-Za-z])(?=.*\\d)[A-Za-z\\d]{8,}$\"");
-        Matcher matcher = pattern.matcher(e1);
-        Matcher matcher2 = pattern2.matcher(e2);
-        return matcher.find() && matcher2.find();
-    }
+
     private void btnIniciarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIniciarSesionActionPerformed
         if ("root".equals(txfUsuario.getText())) {
            java.awt.EventQueue.invokeLater(new Runnable() {
@@ -152,14 +147,14 @@ public class InicioSesion extends javax.swing.JFrame {
         int id = 0;
         BaseDeDatos b = new BaseDeDatos();
         try {
-            if (!b.conectar("login", "root", "")){
+            if (!b.conectar(usuariosDB, usuarioDB, contrasenaDB)){
                 JOptionPane.showMessageDialog(this, "Error al conectarse con la base de datos", "Error", JOptionPane.ERROR_MESSAGE);
                 return;
             }
            
             ///Aqui se busca en la base de datos si existe un campo con el mismo usuario y contraseña, de ser asi guarda su id
             ResultSet r = b.cosultar("SELECT* FROM usuarios "
-                    + "WHERE contra=\"" + new String(txfContra.getPassword()) 
+                    + "WHERE contrasena=\"" + new String(txfContra.getPassword()) 
                     + "\" AND usuario=\"" + txfUsuario.getText() + "\"");
             
             if (r != null&& r.next()) {

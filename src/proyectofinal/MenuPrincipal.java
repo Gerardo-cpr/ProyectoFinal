@@ -17,6 +17,9 @@ public class MenuPrincipal extends javax.swing.JFrame {
 
     //nombre del usuario que previamente inicio sesion
     private String usuario;
+    private final String clientesDB = "sql5407871";
+    private final String usuarioDB = "sql5407871";
+    private final String contrasenaDB = "Mt1I2E9GtN";
     
     /**
      * Creates new form MenuPrincipal
@@ -26,6 +29,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
         this.setLocationRelativeTo(null);
         this.usuario = usuario;
     }
+    //Esta funcion añade una fila a la tabla de clientes
     public void addFilaTabla(String nombre, float totalPrestamo, int tiempoRestantePrestamo, float siguientePago, float montoRestante) {
         DefaultTableModel model = (DefaultTableModel) tablaDeudores.getModel();
         model.addRow(new Object[]{nombre, totalPrestamo, tiempoRestantePrestamo, siguientePago, montoRestante});
@@ -34,14 +38,14 @@ public class MenuPrincipal extends javax.swing.JFrame {
     public final void actualizarTabla() {
         BaseDeDatos baseDeDatos = new BaseDeDatos();
         try {
-            baseDeDatos.conectar("prestamos", "root", "");
-            ResultSet respuesta = baseDeDatos.cosultar("SELECT* FROM deudores");
+            baseDeDatos.conectar(clientesDB, usuarioDB, contrasenaDB);
+            ResultSet respuesta = baseDeDatos.cosultar("SELECT* FROM clientes");
             while(respuesta.next()) {
                 int mesesPagados = respuesta.getInt("meses_pagados");
                 int tiempoPrestamo = respuesta.getInt("tiempo_prestamo");
                 float totalPrestado = respuesta.getFloat("total_prestado");
                 float montoRestante = respuesta.getFloat("monto_restante");
-                addFilaTabla(respuesta.getString(2), totalPrestado, tiempoPrestamo - mesesPagados, totalPrestado / tiempoPrestamo, 
+                addFilaTabla(respuesta.getString("nombre"), totalPrestado, tiempoPrestamo - mesesPagados, totalPrestado / tiempoPrestamo, 
                         totalPrestado - ((totalPrestado / tiempoPrestamo) * mesesPagados));
                 }
         } catch (SQLException e) {
