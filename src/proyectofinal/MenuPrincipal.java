@@ -9,6 +9,11 @@ import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import java.sql.SQLException;
 import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.Timer;
+import java.util.TimerTask;
+import javax.swing.JPanel;
+
 /**
  *
  * @author Gerardo
@@ -16,18 +21,19 @@ import java.sql.ResultSet;
 public class MenuPrincipal extends javax.swing.JFrame {
 
     //nombre del usuario que previamente inicio sesion
-    private final int usuarioID;
+    private final int encargadoId;
     private final String clientesDB = "sql5407871";
     private final String usuarioDB = "sql5407871";
     private final String contrasenaDB = "Mt1I2E9GtN";
-    
+    private ArrayList<Cliente> clientes;
     /**
      * Creates new form MenuPrincipal
      */
-    public MenuPrincipal(int usuarioID) {
+    public MenuPrincipal(int encargadoId) {
         initComponents();
         this.setLocationRelativeTo(null);
-        this.usuarioID = usuarioID;
+        this.encargadoId = encargadoId;
+        clientes = new ArrayList<>();
     }
     
     public void borrarTabla() {
@@ -35,17 +41,25 @@ public class MenuPrincipal extends javax.swing.JFrame {
         model.setRowCount(0);
     }
     //Esta funcion añade una fila a la tabla de clientes
-    public void addFilaTabla(String nombre, float totalPrestamo, int tiempoRestantePrestamo, float siguientePago, float montoRestante) {
+    public void addCliente(Cliente cliente) {
         DefaultTableModel model = (DefaultTableModel) tablaDeudores.getModel();
-        model.addRow(new Object[]{nombre, totalPrestamo, tiempoRestantePrestamo, siguientePago, montoRestante});
+        model.addRow(new Object[]{cliente.nombre, cliente.totalPrestado, 
+            cliente.tiempoDePrestamo - cliente.mesesPagados
+                , cliente.totalPrestado / cliente.tiempoDePrestamo, 
+                cliente.totalPrestado - ((cliente.totalPrestado / cliente.tiempoDePrestamo)) * cliente.mesesPagados});
     }
     //Esta funcion obtiene los datos de la base de datos que contiene informacion de los deudores y la llena
     public final void actualizarTabla() {
         lblCargando.setText("Cargando");
-        new AsyncDB("SELECT* FROM clientes", clientesDB, usuarioDB, contrasenaDB, this, barraDeProgreso).start();
+        new AsyncDB("SELECT* FROM clientes", clientesDB, usuarioDB, contrasenaDB, this, barraDeProgreso, clientes).start();
+        //new AsyncDB("SELECT* FROM clientes WHERE id_encargado = \"" + encargadoId + "\"", clientesDB, usuarioDB, contrasenaDB, this, barraDeProgreso).start();
     }
     public void finalRellenoTabla() {
        lblCargando.setText("Da click en el cliente para mas informacion");
+    }
+    
+    public void mostrarCliente(Cliente cliente) {
+         new VentanaCliente(cliente).setVisible(true);
     }
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -61,11 +75,12 @@ public class MenuPrincipal extends javax.swing.JFrame {
         jMenu8 = new javax.swing.JMenu();
         jMenu9 = new javax.swing.JMenu();
         jMenuItem4 = new javax.swing.JMenuItem();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        tablaDeudores = new javax.swing.JTable();
         jLabel1 = new javax.swing.JLabel();
         lblCargando = new javax.swing.JLabel();
         barraDeProgreso = new javax.swing.JProgressBar();
+        panelTabla = new javax.swing.JPanel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        tablaDeudores = new javax.swing.JTable();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu7 = new javax.swing.JMenu();
         menuCerrarSesion = new javax.swing.JMenuItem();
@@ -103,6 +118,13 @@ public class MenuPrincipal extends javax.swing.JFrame {
                 formWindowOpened(evt);
             }
         });
+
+        jLabel1.setFont(new java.awt.Font("Verdana", 1, 24)); // NOI18N
+        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel1.setText("Prestamos");
+
+        lblCargando.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblCargando.setText("Da click en el cliente para mas informacion");
 
         tablaDeudores.setBorder(javax.swing.BorderFactory.createMatteBorder(2, 2, 2, 2, new java.awt.Color(0, 0, 0)));
         tablaDeudores.setFont(new java.awt.Font("Lucida Grande", 1, 18)); // NOI18N
@@ -143,12 +165,16 @@ public class MenuPrincipal extends javax.swing.JFrame {
         });
         jScrollPane2.setViewportView(tablaDeudores);
 
-        jLabel1.setFont(new java.awt.Font("Verdana", 1, 24)); // NOI18N
-        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("Prestamos");
-
-        lblCargando.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblCargando.setText("Da click en el cliente para mas informacion");
+        javax.swing.GroupLayout panelTablaLayout = new javax.swing.GroupLayout(panelTabla);
+        panelTabla.setLayout(panelTablaLayout);
+        panelTablaLayout.setHorizontalGroup(
+            panelTablaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jScrollPane2)
+        );
+        panelTablaLayout.setVerticalGroup(
+            panelTablaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 434, Short.MAX_VALUE)
+        );
 
         jMenu7.setText("Sesión");
 
@@ -200,16 +226,13 @@ public class MenuPrincipal extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 888, Short.MAX_VALUE)
-                .addContainerGap())
             .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(lblCargando, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
                 .addGap(107, 107, 107)
                 .addComponent(barraDeProgreso, javax.swing.GroupLayout.PREFERRED_SIZE, 730, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(63, Short.MAX_VALUE))
+            .addComponent(panelTabla, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -220,8 +243,9 @@ public class MenuPrincipal extends javax.swing.JFrame {
                 .addComponent(lblCargando)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(barraDeProgreso, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 392, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(panelTabla, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -250,6 +274,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
 
     private void tablaDeudoresMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaDeudoresMouseClicked
         int numeroFila = (int)Math.floor(evt.getY() / 48);
+        mostrarCliente(clientes.get(numeroFila));
     }//GEN-LAST:event_tablaDeudoresMouseClicked
 
 
@@ -276,6 +301,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JLabel lblCargando;
     private javax.swing.JMenuItem menuCerrarSesion;
+    private javax.swing.JPanel panelTabla;
     private javax.swing.JTable tablaDeudores;
     // End of variables declaration//GEN-END:variables
 }

@@ -1,6 +1,7 @@
 package proyectofinal;
 
 import java.sql.*;
+import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.JProgressBar;
 
@@ -17,7 +18,8 @@ public class AsyncDB extends Thread {
     MenuPrincipal menu;
     ResultSet respuesta;
     JProgressBar progreso;
-    public AsyncDB(String consulta, String nombre, String usuario, String contra, MenuPrincipal menu, JProgressBar progreso) {
+    ArrayList<Cliente> clientes;
+    public AsyncDB(String consulta, String nombre, String usuario, String contra, MenuPrincipal menu, JProgressBar progreso, ArrayList<Cliente> clientes) {
         parametros = true;
         this.consulta = consulta;
         this.nombre = nombre;
@@ -25,6 +27,7 @@ public class AsyncDB extends Thread {
         this.contra = contra;
         this.menu = menu;
         this.progreso = progreso;
+        this.clientes = clientes;
     }
     @Override
     public void run() {
@@ -42,9 +45,10 @@ public class AsyncDB extends Thread {
                 int tiempoPrestamo = respuesta.getInt("tiempo_prestamo");
                 float totalPrestado = respuesta.getFloat("total_prestado");
                 float montoRestante = respuesta.getFloat("monto_restante");
-                
-                menu.addFilaTabla(nombre, totalPrestado, tiempoPrestamo - mesesPagados, totalPrestado / tiempoPrestamo, 
-                        totalPrestado - ((totalPrestado / tiempoPrestamo) * mesesPagados));
+                System.out.println("..");
+                Cliente cliente = new Cliente(nombre, mesesPagados, mesesPagados, tiempoPrestamo, mesesPagados, totalPrestado, montoRestante);
+                menu.addCliente(cliente); //Es importante que se
+                clientes.add(cliente);    //añadan en el mismo orden
                 }
             db.desconectar();
             progreso.setValue(100);
