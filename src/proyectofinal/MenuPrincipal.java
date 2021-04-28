@@ -275,6 +275,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
     private void tablaDeudoresMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaDeudoresMouseClicked
         int numeroFila = (int)Math.floor(evt.getY() / 48);
         mostrarCliente(clientes.get(numeroFila));
+        this.setEnabled(false);
     }//GEN-LAST:event_tablaDeudoresMouseClicked
 
 
