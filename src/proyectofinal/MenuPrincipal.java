@@ -59,7 +59,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
     }
     
     public void mostrarCliente(Cliente cliente) {
-         new VentanaCliente(cliente).setVisible(true);
+         new VentanaCliente(this, cliente).setVisible(true);
     }
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -276,6 +276,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
         int numeroFila = (int)Math.floor(evt.getY() / 48);
         mostrarCliente(clientes.get(numeroFila));
         this.setEnabled(false);
+        this.setAlwaysOnTop(false);
     }//GEN-LAST:event_tablaDeudoresMouseClicked
 
 
