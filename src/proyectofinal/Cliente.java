@@ -5,13 +5,13 @@ package proyectofinal;
  * @author gerardo, adriel, julio
  */
 public class Cliente {
-    String nombre;
-    int id;
-    int mesesPagados;
-    int tiempoDePrestamo;
-    int encargadoID;
-    float totalPrestado;
-    float montoRestante;
+    private String nombre;
+    private int id;
+    private int mesesPagados;
+    private int tiempoDePrestamo;
+    private int encargadoID;
+    private float totalPrestado;
+    private float montoRestante;
 
     public Cliente(String nombre, int id, int mesesPagados, int tiempoDePrestamo, int encargadoID, float totalPrestado, float montoRestante) {
         this.nombre = nombre;

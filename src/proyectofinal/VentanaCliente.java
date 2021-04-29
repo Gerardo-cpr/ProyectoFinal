@@ -19,9 +19,18 @@ public class VentanaCliente extends javax.swing.JFrame {
         this.setAlwaysOnTop(true);
         this.parent = parent;
         this.cliente = cliente;
-        lblNombre.setText("Cliente: " + cliente.getNombre());
+        llenarDatosCliente();
     }
-
+    
+    void llenarDatosCliente() {
+        lblNombre.setText("Cliente: " + cliente.getNombre());
+        lblMontoPrestado.setText("Monto prestado: " + cliente.getTotalPrestado());
+        lblTiempoPrestamo.setText("Tiempo de prestamo: " + cliente.getTiempoDePrestamo());
+        float totalPagado = cliente.getMesesPagados() * (cliente.getTotalPrestado() / cliente.getTiempoDePrestamo());
+        lblTotalPagado.setText("Total pagado: " + totalPagado + " (" + cliente.getMesesPagados() + " meses)");
+        int mesesRestantes = cliente.getTiempoDePrestamo() - cliente.getMesesPagados();
+        lblRestante.setText("Restante: " + (cliente.getTotalPrestado() - totalPagado) + " (" + mesesRestantes + " meses)");
+    }
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
