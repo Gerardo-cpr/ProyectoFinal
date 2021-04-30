@@ -45,7 +45,6 @@ public class AsyncDB extends Thread {
                 int tiempoPrestamo = respuesta.getInt("tiempo_prestamo");
                 float totalPrestado = respuesta.getFloat("total_prestado");
                 float montoRestante = respuesta.getFloat("monto_restante");
-                System.out.println("..");
                 Cliente cliente = new Cliente(nombre, mesesPagados, mesesPagados, tiempoPrestamo, mesesPagados, totalPrestado, montoRestante);
                 menu.addCliente(cliente); //Es importante que se
                 clientes.add(cliente);    //añadan en el mismo orden

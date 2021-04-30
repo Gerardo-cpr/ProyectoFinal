@@ -20,8 +20,9 @@ public class VentanaCliente extends javax.swing.JFrame {
         this.parent = parent;
         this.cliente = cliente;
         llenarDatosCliente();
+        inicializarAbonar();
     }
-    
+    //Inicializa la parte de cliente
     void llenarDatosCliente() {
         lblNombre.setText("Cliente: " + cliente.getNombre());
         lblMontoPrestado.setText("Monto prestado: " + cliente.getTotalPrestado());
@@ -29,7 +30,20 @@ public class VentanaCliente extends javax.swing.JFrame {
         float totalPagado = cliente.getMesesPagados() * (cliente.getTotalPrestado() / cliente.getTiempoDePrestamo());
         lblTotalPagado.setText("Total pagado: " + totalPagado + " (" + cliente.getMesesPagados() + " meses)");
         int mesesRestantes = cliente.getTiempoDePrestamo() - cliente.getMesesPagados();
-        lblRestante.setText("Restante: " + (cliente.getTotalPrestado() - totalPagado) + " (" + mesesRestantes + " meses)");
+        lblRestante.setText("Restante: " + (cliente.getMontoRestante()) + " (" + mesesRestantes + " meses)");
+    }
+    //Inicializa la parte de Abonar
+    void inicializarAbonar() {
+        if (cliente.getMontoRestante() > 0) {
+            int mesesRestantes = cliente.getTiempoDePrestamo() - cliente.getMesesPagados();
+            for(int i = 1; i <= mesesRestantes; i++) {
+                cbMesesAbonar.addItem(i + " meses");
+            }
+        }
+        // En caso de que no deba nada
+        else {
+            
+        }
     }
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -40,11 +54,12 @@ public class VentanaCliente extends javax.swing.JFrame {
         lblTiempoPrestamo = new javax.swing.JLabel();
         lblTotalPagado = new javax.swing.JLabel();
         lblRestante = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
-        jToggleButton1 = new javax.swing.JToggleButton();
-        jComboBox1 = new javax.swing.JComboBox<>();
-        jLabel6 = new javax.swing.JLabel();
-        jLabel7 = new javax.swing.JLabel();
+        pAbonar = new javax.swing.JPanel();
+        lblRestanteConAbono = new javax.swing.JLabel();
+        btnPagar = new javax.swing.JToggleButton();
+        cbMesesAbonar = new javax.swing.JComboBox<>();
+        lblMesesAPagar = new javax.swing.JLabel();
+        lblAbonar = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Cliente");
@@ -70,18 +85,52 @@ public class VentanaCliente extends javax.swing.JFrame {
         lblRestante.setFont(new java.awt.Font("Helvetica Neue", 0, 18)); // NOI18N
         lblRestante.setText("Restante: x (n meses)");
 
-        jLabel5.setFont(new java.awt.Font("Verdana", 0, 24)); // NOI18N
-        jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel5.setText("Abonar");
+        lblRestanteConAbono.setText("Con el abono quedarian: n xxxx (nmeses)");
 
-        jToggleButton1.setText("Pagar n ");
+        btnPagar.setText("Pagar n ");
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cbMesesAbonar.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                cbMesesAbonarItemStateChanged(evt);
+            }
+        });
 
-        jLabel6.setFont(new java.awt.Font("Helvetica Neue", 0, 18)); // NOI18N
-        jLabel6.setText("Meses a pagar");
+        lblMesesAPagar.setFont(new java.awt.Font("Helvetica Neue", 0, 18)); // NOI18N
+        lblMesesAPagar.setText("Meses a pagar");
 
-        jLabel7.setText("Restante: n xxxx (nmeses)");
+        javax.swing.GroupLayout pAbonarLayout = new javax.swing.GroupLayout(pAbonar);
+        pAbonar.setLayout(pAbonarLayout);
+        pAbonarLayout.setHorizontalGroup(
+            pAbonarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pAbonarLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(lblRestanteConAbono)
+                .addGap(84, 84, 84))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pAbonarLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(lblMesesAPagar)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(cbMesesAbonar, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btnPagar, javax.swing.GroupLayout.DEFAULT_SIZE, 146, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        pAbonarLayout.setVerticalGroup(
+            pAbonarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pAbonarLayout.createSequentialGroup()
+                .addGap(35, 35, 35)
+                .addGroup(pAbonarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(cbMesesAbonar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblMesesAPagar)
+                    .addComponent(btnPagar))
+                .addGap(28, 28, 28)
+                .addComponent(lblRestanteConAbono)
+                .addContainerGap(19, Short.MAX_VALUE))
+        );
+
+        lblAbonar.setFont(new java.awt.Font("Verdana", 0, 24)); // NOI18N
+        lblAbonar.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblAbonar.setText("Abonar");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -89,36 +138,27 @@ public class VentanaCliente extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(lblNombre, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(132, 132, 132)
-                        .addComponent(jLabel7)
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addContainerGap())
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(lblTotalPagado, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(lblRestante)
-                    .addComponent(lblTiempoPrestamo)
-                    .addComponent(lblMontoPrestado, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(83, 83, 83))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(50, 50, 50)
-                .addComponent(jLabel6)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jToggleButton1)
-                .addContainerGap(30, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(lblTotalPagado, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(lblRestante)
+                            .addComponent(lblTiempoPrestamo)
+                            .addComponent(lblMontoPrestado, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(83, 83, 83))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(pAbonar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addContainerGap())
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(lblAbonar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addContainerGap())))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(34, 34, 34)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(lblNombre)
                 .addGap(24, 24, 24)
                 .addComponent(lblMontoPrestado)
@@ -128,16 +168,11 @@ public class VentanaCliente extends javax.swing.JFrame {
                 .addComponent(lblTotalPagado)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(lblRestante)
-                .addGap(46, 46, 46)
-                .addComponent(jLabel5)
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jToggleButton1)
-                    .addComponent(jLabel6))
-                .addGap(44, 44, 44)
-                .addComponent(jLabel7)
-                .addContainerGap(47, Short.MAX_VALUE))
+                .addComponent(lblAbonar)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(pAbonar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(50, 50, 50))
         );
 
         pack();
@@ -148,17 +183,30 @@ public class VentanaCliente extends javax.swing.JFrame {
         parent.setAlwaysOnTop(true);
     }//GEN-LAST:event_formWindowClosed
 
+    private void cbMesesAbonarItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cbMesesAbonarItemStateChanged
+        int mesesAPagar = cbMesesAbonar.getSelectedIndex() + 1;
+        float montoPorMes = (float)cliente.getTotalPrestado() / (float)cliente.getTiempoDePrestamo();
+        float montoAPagar = montoPorMes * mesesAPagar;
+        btnPagar.setText("Pagar: " + montoAPagar);
+        float montoRestanteConElAbono = cliente.getMontoRestante() - montoAPagar;
+        System.out.println("Monto restante " + cliente.getMontoRestante());
+        System.out.println("Monto a pagar " + montoAPagar);
+        lblRestanteConAbono.setText("Con el abono quedarian: " + montoRestanteConElAbono);
+        
+    }//GEN-LAST:event_cbMesesAbonarItemStateChanged
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JComboBox<String> jComboBox1;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
-    private javax.swing.JToggleButton jToggleButton1;
+    private javax.swing.JToggleButton btnPagar;
+    private javax.swing.JComboBox<String> cbMesesAbonar;
+    private javax.swing.JLabel lblAbonar;
+    private javax.swing.JLabel lblMesesAPagar;
     private javax.swing.JLabel lblMontoPrestado;
     private javax.swing.JLabel lblNombre;
     private javax.swing.JLabel lblRestante;
+    private javax.swing.JLabel lblRestanteConAbono;
     private javax.swing.JLabel lblTiempoPrestamo;
     private javax.swing.JLabel lblTotalPagado;
+    private javax.swing.JPanel pAbonar;
     // End of variables declaration//GEN-END:variables
 }
