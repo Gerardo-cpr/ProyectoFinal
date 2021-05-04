@@ -13,9 +13,9 @@ public class Cliente {
     private float totalPrestado;
     private float montoRestante;
 
-    public Cliente(String nombre, int id, int mesesPagados, int tiempoDePrestamo, int encargadoID, float totalPrestado, float montoRestante) {
-        this.nombre = nombre;
+    public Cliente(int id, String nombre, int mesesPagados, int tiempoDePrestamo, int encargadoID, float totalPrestado, float montoRestante) {
         this.id = id;
+        this.nombre = nombre;
         this.mesesPagados = mesesPagados;
         this.tiempoDePrestamo = tiempoDePrestamo;
         this.encargadoID = encargadoID;

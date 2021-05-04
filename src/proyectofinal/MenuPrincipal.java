@@ -43,7 +43,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
     //Esta funcion añade una fila a la tabla de clientes
     public void addCliente(Cliente cliente) {
         DefaultTableModel model = (DefaultTableModel) tablaDeudores.getModel();
-        model.addRow(new Object[]{cliente.getNombre(), cliente.getTotalPrestado(), 
+        model.addRow(new Object[]{cliente.getId(), cliente.getNombre(), cliente.getTotalPrestado(), 
             cliente.getTiempoDePrestamo() - cliente.getMesesPagados()
                 , cliente.getTotalPrestado() / cliente.getTiempoDePrestamo(), 
                cliente.getMontoRestante()});
@@ -77,10 +77,11 @@ public class MenuPrincipal extends javax.swing.JFrame {
         jMenuItem4 = new javax.swing.JMenuItem();
         jLabel1 = new javax.swing.JLabel();
         lblCargando = new javax.swing.JLabel();
-        barraDeProgreso = new javax.swing.JProgressBar();
         panelTabla = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         tablaDeudores = new javax.swing.JTable();
+        barraDeProgreso = new javax.swing.JProgressBar();
+        jTextField1 = new javax.swing.JTextField();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu7 = new javax.swing.JMenu();
         menuCerrarSesion = new javax.swing.JMenuItem();
@@ -123,24 +124,25 @@ public class MenuPrincipal extends javax.swing.JFrame {
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("Prestamos");
 
+        lblCargando.setFont(new java.awt.Font("Verdana", 0, 11)); // NOI18N
         lblCargando.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblCargando.setText("Da click en el cliente para mas informacion");
 
         tablaDeudores.setBorder(javax.swing.BorderFactory.createMatteBorder(2, 2, 2, 2, new java.awt.Color(0, 0, 0)));
-        tablaDeudores.setFont(new java.awt.Font("Lucida Grande", 1, 18)); // NOI18N
+        tablaDeudores.setFont(new java.awt.Font("Verdana", 1, 18)); // NOI18N
         tablaDeudores.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "Cliente", "Total prestado", "Tiempo restante de prestamo", "Monto del siguiente pago", "Monto total deuda restante"
+                "ID", "Cliente", "Total prestado", "Tiempo restante de prestamo", "Monto del siguiente pago", "Monto total deuda restante"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.Float.class, java.lang.Integer.class, java.lang.Float.class, java.lang.Float.class
+                java.lang.Integer.class, java.lang.String.class, java.lang.Float.class, java.lang.Integer.class, java.lang.Float.class, java.lang.Float.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false
+                false, false, false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -154,7 +156,6 @@ public class MenuPrincipal extends javax.swing.JFrame {
         tablaDeudores.setToolTipText("");
         tablaDeudores.setGridColor(new java.awt.Color(51, 153, 255));
         tablaDeudores.setRowHeight(48);
-        tablaDeudores.setShowGrid(false);
         tablaDeudores.getTableHeader().setResizingAllowed(false);
         tablaDeudores.getTableHeader().setReorderingAllowed(false);
         tablaDeudores.setVerifyInputWhenFocusTarget(false);
@@ -165,18 +166,40 @@ public class MenuPrincipal extends javax.swing.JFrame {
         });
         jScrollPane2.setViewportView(tablaDeudores);
 
+        jTextField1.setText("jTextField1");
+        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextField1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout panelTablaLayout = new javax.swing.GroupLayout(panelTabla);
         panelTabla.setLayout(panelTablaLayout);
         panelTablaLayout.setHorizontalGroup(
             panelTablaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane2)
+            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 900, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelTablaLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(barraDeProgreso, javax.swing.GroupLayout.PREFERRED_SIZE, 730, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(65, 65, 65))
+            .addGroup(panelTablaLayout.createSequentialGroup()
+                .addGap(240, 240, 240)
+                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 539, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         panelTablaLayout.setVerticalGroup(
             panelTablaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 434, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelTablaLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jTextField1, javax.swing.GroupLayout.DEFAULT_SIZE, 32, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
+                .addComponent(barraDeProgreso, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 377, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         jMenu7.setText("Sesión");
+        jMenu7.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
 
         menuCerrarSesion.setText("Cerrar sesión");
         menuCerrarSesion.addActionListener(new java.awt.event.ActionListener() {
@@ -189,6 +212,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
         jMenuBar1.add(jMenu7);
 
         jMenu1.setText("Prestamos");
+        jMenu1.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
 
         jMenuItem1.setText("Crear nuevo prestamo");
         jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
@@ -201,6 +225,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
         jMenuBar1.add(jMenu1);
 
         jMenu10.setText("Cliente");
+        jMenu10.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
 
         jMenuItem5.setText("Buscar");
         jMenuItem5.addActionListener(new java.awt.event.ActionListener() {
@@ -228,10 +253,6 @@ public class MenuPrincipal extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(lblCargando, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(107, 107, 107)
-                .addComponent(barraDeProgreso, javax.swing.GroupLayout.PREFERRED_SIZE, 730, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(63, Short.MAX_VALUE))
             .addComponent(panelTabla, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
@@ -239,11 +260,9 @@ public class MenuPrincipal extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(22, 22, 22)
                 .addComponent(jLabel1)
-                .addGap(18, 18, 18)
-                .addComponent(lblCargando)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(barraDeProgreso, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(lblCargando, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(33, 33, 33)
                 .addComponent(panelTabla, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -279,6 +298,10 @@ public class MenuPrincipal extends javax.swing.JFrame {
         this.setAlwaysOnTop(false);
     }//GEN-LAST:event_tablaDeudoresMouseClicked
 
+    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextField1ActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JProgressBar barraDeProgreso;
@@ -301,6 +324,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem5;
     private javax.swing.JMenuItem jMenuItem6;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JTextField jTextField1;
     private javax.swing.JLabel lblCargando;
     private javax.swing.JMenuItem menuCerrarSesion;
     private javax.swing.JPanel panelTabla;
