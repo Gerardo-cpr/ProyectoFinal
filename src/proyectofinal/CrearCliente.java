@@ -99,9 +99,7 @@ public class CrearCliente extends javax.swing.JFrame {
             db.conectar(clientesDB, usuarioDB, contrasenaDB);
             String consulta = "INSERT INTO clientes" + " (encargado_id, nombre, meses_pagados, tiempo_prestamo, total_prestado, monto_restante"
                     + ") VALUES (" + encargadoID + ", " + "'" + lblNombreCliente.getText() + "'"  + ", 0, 0, 0, 0)";
-            if ( !(db.modificar(consulta)) ) {
-                JOptionPane.showMessageDialog(this, "Error al guardar al cliente", "Error", JOptionPane.ERROR_MESSAGE);
-            }
+            db.modificar(consulta);
             db.desconectar();
              JOptionPane.showMessageDialog(this, "Cliente creado correctamente", "Correcto", JOptionPane.INFORMATION_MESSAGE);
              this.setAlwaysOnTop(false);
