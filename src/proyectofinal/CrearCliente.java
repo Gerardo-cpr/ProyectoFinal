@@ -104,6 +104,7 @@ public class CrearCliente extends javax.swing.JFrame {
             AsyncDB.recargardb();
              JOptionPane.showMessageDialog(this, "Cliente creado correctamente", "Correcto", JOptionPane.INFORMATION_MESSAGE);
              this.setAlwaysOnTop(false);
+             AsyncDB.recargardb();
              this.dispose();
         } catch (SQLException ex) {
             ex.printStackTrace();

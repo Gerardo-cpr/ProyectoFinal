@@ -2,6 +2,7 @@ package proyectofinal;
 
 import java.util.ArrayList;
 import java.sql.*;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -13,9 +14,11 @@ public class CrearPrestamo extends javax.swing.JFrame {
     private final String clientesDB = "sql5407871";
     private final String usuarioDB = "sql5407871";
     private final String contrasenaDB = "Mt1I2E9GtN";
-    
-    public CrearPrestamo(ArrayList<Cliente> clientes) {
+    private javax.swing.JFrame parent;
+    public CrearPrestamo(ArrayList<Cliente> clientes, javax.swing.JFrame parent) {
         initComponents();
+        this.setAlwaysOnTop(true);
+        this.parent = parent;
         this.clientes = clientes;
         this.setLocationRelativeTo(null);
         iniciarlizarInterfaz();
@@ -38,8 +41,13 @@ public class CrearPrestamo extends javax.swing.JFrame {
         cbxTiempoPrestamo = new javax.swing.JComboBox<>();
         tbxCantidad = new javax.swing.JTextField();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setResizable(false);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosed(java.awt.event.WindowEvent evt) {
+                formWindowClosed(evt);
+            }
+        });
 
         jLabel1.setFont(new java.awt.Font("Verdana", 0, 18)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -139,17 +147,24 @@ public class CrearPrestamo extends javax.swing.JFrame {
         }
         float cantidadAPrestar = 0;
         try {
-            cantidadAPrestar = Float.parseFloat(tbxCantidad.getText());
+            Float.parseFloat(tbxCantidad.getText());
         } catch(java.lang.NumberFormatException e) {
-            
+            JOptionPane.showMessageDialog(this, "Introduce la cantidad a prestar", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
         }
         BaseDeDatos db = new BaseDeDatos();
         try {
             db.conectar(clientesDB, usuarioDB, contrasenaDB);
-            String consulta = "";
+            String consulta = "UPDATE clientes" + " SET tiempo_prestamo = " + tiempoDePrestamo
+                    + ", total_prestado = " + tbxCantidad.getText() + " WHERE nombre = " 
+                    + "\'" + clientes.get(cbxClientes.getSelectedIndex()).getNombre() + "\';";
             db.modificar(consulta);
+            JOptionPane.showMessageDialog(this, "Prestamo creado correctamente", "Correcto", JOptionPane.INFORMATION_MESSAGE);
+            this.dispose();
+            AsyncDB.recargardb();
         } catch (SQLException e) {
-            
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(this, "Error al otorgar el prestamo", "Error", JOptionPane.ERROR_MESSAGE);
         }
         
     }//GEN-LAST:event_btnPrestarActionPerformed
@@ -173,6 +188,11 @@ public class CrearPrestamo extends javax.swing.JFrame {
             evt.consume();
         }
     }//GEN-LAST:event_tbxCantidadKeyTyped
+
+    private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
+        parent.setEnabled(true);
+        parent.setAlwaysOnTop(true);
+    }//GEN-LAST:event_formWindowClosed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnPrestar;
