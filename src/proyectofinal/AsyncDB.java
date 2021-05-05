@@ -10,15 +10,19 @@ import javax.swing.JProgressBar;
  * @author gerardo
  */
 public class AsyncDB extends Thread {
-    boolean parametros = false;
-    String consulta;
-    String nombre;
-    String usuario;
-    String contra;
-    MenuPrincipal menu;
-    ResultSet respuesta;
-    JProgressBar progreso;
-    ArrayList<Cliente> clientes;
+   private static boolean parametros = false;
+   private static String consulta;
+   private static String nombre;
+   private static String usuario;
+   private static String contra;
+   private static MenuPrincipal menu;
+   private static ResultSet respuesta;
+   private static JProgressBar progreso;
+   private static ArrayList<Cliente> clientes;
+
+    public AsyncDB() {
+    }
+    
     public AsyncDB(String consulta, String nombre, String usuario, String contra, MenuPrincipal menu, JProgressBar progreso, ArrayList<Cliente> clientes) {
         parametros = true;
         this.consulta = consulta;
@@ -39,6 +43,7 @@ public class AsyncDB extends Thread {
             respuesta = db.cosultar(consulta);
             progreso.setValue(75);
             menu.borrarTabla();
+            clientes.removeAll(clientes);
             while(respuesta.next()) {
                 int id = respuesta.getInt("id");
                 int encargado_id = respuesta.getInt("encargado_id");
@@ -53,6 +58,33 @@ public class AsyncDB extends Thread {
             }
             db.desconectar();
             progreso.setValue(100);
+        } catch (SQLException e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Error al conectarse con la base de datos", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+        menu.finalRellenoTabla();
+  }
+    
+    public static void recargardb() {
+        BaseDeDatos db = new BaseDeDatos();
+        try {
+            db.conectar(nombre, usuario, contra);
+            respuesta = db.cosultar(consulta);
+            menu.borrarTabla();
+            clientes.removeAll(clientes);
+            while(respuesta.next()) {
+                int id = respuesta.getInt("id");
+                int encargado_id = respuesta.getInt("encargado_id");
+                String nombre = respuesta.getString("nombre");
+                int mesesPagados = respuesta.getInt("meses_pagados");
+                int tiempoPrestamo = respuesta.getInt("tiempo_prestamo");
+                float totalPrestado = respuesta.getFloat("total_prestado");
+                float montoRestante = respuesta.getFloat("monto_restante");
+                Cliente cliente = new Cliente(id, nombre, mesesPagados, tiempoPrestamo, encargado_id, totalPrestado, montoRestante);
+                menu.addCliente(cliente); //Es importante que se
+                clientes.add(cliente);    //añadan en el mismo orden
+            }
+            db.desconectar();
         } catch (SQLException e) {
             e.printStackTrace();
             JOptionPane.showMessageDialog(null, "Error al conectarse con la base de datos", "Error", JOptionPane.ERROR_MESSAGE);

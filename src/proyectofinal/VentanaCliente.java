@@ -5,11 +5,19 @@
  */
 package proyectofinal;
 
+import java.sql.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author gerardo
  */
 public class VentanaCliente extends javax.swing.JFrame {
+    private final String clientesDB = "sql5407871";
+    private final String usuarioDB = "sql5407871";
+    private final String contrasenaDB = "Mt1I2E9GtN";
     Cliente cliente;
     javax.swing.JFrame parent;
     public VentanaCliente(javax.swing.JFrame parent, Cliente cliente) {
@@ -60,6 +68,7 @@ public class VentanaCliente extends javax.swing.JFrame {
         cbMesesAbonar = new javax.swing.JComboBox<>();
         lblMesesAPagar = new javax.swing.JLabel();
         lblAbonar = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Cliente");
@@ -132,6 +141,14 @@ public class VentanaCliente extends javax.swing.JFrame {
         lblAbonar.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblAbonar.setText("Abonar");
 
+        jButton1.setFont(new java.awt.Font("Verdana", 0, 18)); // NOI18N
+        jButton1.setText("Borrar");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -154,6 +171,10 @@ public class VentanaCliente extends javax.swing.JFrame {
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(lblAbonar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addContainerGap())))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(166, 166, 166)
+                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -172,7 +193,9 @@ public class VentanaCliente extends javax.swing.JFrame {
                 .addComponent(lblAbonar)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(pAbonar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(50, 50, 50))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
 
         pack();
@@ -195,10 +218,29 @@ public class VentanaCliente extends javax.swing.JFrame {
         
     }//GEN-LAST:event_cbMesesAbonarItemStateChanged
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+                try {
+            BaseDeDatos db = new BaseDeDatos();
+            int id=cliente.getId();
+            db.conectar(clientesDB, usuarioDB, contrasenaDB);
+            String consulta = "DELETE FROM clientes WHERE id="+id;
+            db.modificar(consulta);
+            db.desconectar();
+            AsyncDB.recargardb();
+             JOptionPane.showMessageDialog(this, "Cliente borrado exitosamente", "Correcto", JOptionPane.INFORMATION_MESSAGE);
+             this.setAlwaysOnTop(false);
+             this.dispose();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            JOptionPane.showMessageDialog(this, "Error al borrar cliente", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_jButton1ActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JToggleButton btnPagar;
     private javax.swing.JComboBox<String> cbMesesAbonar;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel lblAbonar;
     private javax.swing.JLabel lblMesesAPagar;
     private javax.swing.JLabel lblMontoPrestado;

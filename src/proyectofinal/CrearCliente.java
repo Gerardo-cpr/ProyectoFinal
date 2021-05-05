@@ -101,6 +101,7 @@ public class CrearCliente extends javax.swing.JFrame {
                     + ") VALUES (" + encargadoID + ", " + "'" + lblNombreCliente.getText() + "'"  + ", 0, 0, 0, 0)";
             db.modificar(consulta);
             db.desconectar();
+            AsyncDB.recargardb();
              JOptionPane.showMessageDialog(this, "Cliente creado correctamente", "Correcto", JOptionPane.INFORMATION_MESSAGE);
              this.setAlwaysOnTop(false);
              this.dispose();
