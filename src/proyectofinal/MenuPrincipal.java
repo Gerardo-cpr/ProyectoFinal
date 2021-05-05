@@ -52,7 +52,6 @@ public class MenuPrincipal extends javax.swing.JFrame {
     public final void actualizarTabla() {
         lblCargando.setText("Cargando");
         String consulta = "SELECT* FROM clientes WHERE encargado_id = \"" + encargadoId + "\" " + "ORDER BY monto_restante DESC";
-        System.out.println(consulta);
         new AsyncDB(consulta, clientesDB, usuarioDB, contrasenaDB, this, barraDeProgreso, clientes).start();
     }
     public void finalRellenoTabla() {
@@ -284,7 +283,9 @@ public class MenuPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem5ActionPerformed
 
     private void jMenuItem6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem6ActionPerformed
-        // TODO add your handling code here:
+        this.setEnabled(false);
+        this.setAlwaysOnTop(false);
+        new CrearCliente(this, encargadoId).setVisible(true);
     }//GEN-LAST:event_jMenuItem6ActionPerformed
 
     private void menuCerrarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuCerrarSesionActionPerformed

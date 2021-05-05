@@ -40,6 +40,14 @@ public class BaseDeDatos {
             return null;
         }
     }
+    public boolean modificar(String comando) throws SQLException {
+        if (conectado) {
+            return conexion.createStatement().execute(comando);
+        } else {
+            System.out.println("No se encuentra conectado");
+            return false;
+        }
+    }
     public void desconectar() throws SQLException {
         conexion.close();
     }
