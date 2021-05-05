@@ -51,8 +51,9 @@ public class MenuPrincipal extends javax.swing.JFrame {
     //Esta funcion obtiene los datos de la base de datos que contiene informacion de los deudores y la llena
     public final void actualizarTabla() {
         lblCargando.setText("Cargando");
-        new AsyncDB("SELECT* FROM clientes ORDER BY monto_restante DESC", clientesDB, usuarioDB, contrasenaDB, this, barraDeProgreso, clientes).start();
-        //new AsyncDB("SELECT* FROM clientes WHERE id_encargado = \"" + encargadoId + "\" ORDER BY monto_restante DESC", clientesDB, usuarioDB, contrasenaDB, this, barraDeProgreso).start();
+        String consulta = "SELECT* FROM clientes WHERE encargado_id = \"" + encargadoId + "\" " + "ORDER BY monto_restante DESC";
+        System.out.println(consulta);
+        new AsyncDB(consulta, clientesDB, usuarioDB, contrasenaDB, this, barraDeProgreso, clientes).start();
     }
     public void finalRellenoTabla() {
        lblCargando.setText("Da click en el cliente para mas informacion");
