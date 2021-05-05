@@ -1,28 +1,42 @@
 package proyectofinal;
 
+import java.util.ArrayList;
+import java.sql.*;
+
 /**
  *
  * @author gerardo, Julio, Adriel
  */
 public class CrearPrestamo extends javax.swing.JFrame {
 
-    public CrearPrestamo() {
+    private ArrayList<Cliente> clientes;
+    private final String clientesDB = "sql5407871";
+    private final String usuarioDB = "sql5407871";
+    private final String contrasenaDB = "Mt1I2E9GtN";
+    
+    public CrearPrestamo(ArrayList<Cliente> clientes) {
         initComponents();
+        this.clientes = clientes;
         this.setLocationRelativeTo(null);
+        iniciarlizarInterfaz();
     }
-
+    private void iniciarlizarInterfaz() {
+        for (Cliente cliente : clientes) {
+            cbxClientes.addItem(cliente.getNombre());
+        }
+    }
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
         jLabel1 = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox<>();
+        cbxClientes = new javax.swing.JComboBox<>();
         lblCliente = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        jSpinner1 = new javax.swing.JSpinner();
         btnPrestar = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
-        jComboBox2 = new javax.swing.JComboBox<>();
+        cbxTiempoPrestamo = new javax.swing.JComboBox<>();
+        tbxCantidad = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
@@ -31,17 +45,31 @@ public class CrearPrestamo extends javax.swing.JFrame {
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("Conceder prestamo");
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-
         lblCliente.setText("Cliente");
 
         jLabel2.setText("Cantidad");
 
         btnPrestar.setText("Prestar");
+        btnPrestar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPrestarActionPerformed(evt);
+            }
+        });
 
         jLabel3.setText("Tiempo de prestamo");
 
-        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cbxTiempoPrestamo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1 mes", "2 meses", "6 meses", "12 meses" }));
+
+        tbxCantidad.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tbxCantidadActionPerformed(evt);
+            }
+        });
+        tbxCantidad.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                tbxCantidadKeyTyped(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -56,13 +84,12 @@ public class CrearPrestamo extends javax.swing.JFrame {
                     .addComponent(lblCliente))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jComboBox2, 0, 115, Short.MAX_VALUE)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(jComboBox1, 0, 115, Short.MAX_VALUE)
-                        .addComponent(jSpinner1)
-                        .addGroup(layout.createSequentialGroup()
-                            .addGap(13, 13, 13)
-                            .addComponent(btnPrestar))))
+                    .addComponent(cbxTiempoPrestamo, 0, 115, Short.MAX_VALUE)
+                    .addComponent(cbxClientes, 0, 115, Short.MAX_VALUE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(13, 13, 13)
+                        .addComponent(btnPrestar))
+                    .addComponent(tbxCantidad))
                 .addGap(137, 137, 137))
         );
         layout.setVerticalGroup(
@@ -72,16 +99,16 @@ public class CrearPrestamo extends javax.swing.JFrame {
                 .addComponent(jLabel1)
                 .addGap(45, 45, 45)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cbxClientes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblCliente))
                 .addGap(33, 33, 33)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cbxTiempoPrestamo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel3))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jSpinner1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel2))
+                    .addComponent(jLabel2)
+                    .addComponent(tbxCantidad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 14, Short.MAX_VALUE)
                 .addComponent(btnPrestar)
                 .addGap(54, 54, 54))
@@ -90,14 +117,71 @@ public class CrearPrestamo extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void btnPrestarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPrestarActionPerformed
+
+        int tiempoDePrestamo;
+        switch (cbxTiempoPrestamo.getSelectedIndex()) {
+            case 0:
+                tiempoDePrestamo = 1;
+                break;
+            case 1:
+                tiempoDePrestamo = 2;
+                break;
+            case 2:
+                tiempoDePrestamo = 6;
+                break;
+            case 3:
+                tiempoDePrestamo = 12;
+                break;
+            default:
+                tiempoDePrestamo = 0;
+                break;
+        }
+        float cantidadAPrestar = 0;
+        try {
+            cantidadAPrestar = Float.parseFloat(tbxCantidad.getText());
+        } catch(java.lang.NumberFormatException e) {
+            
+        }
+        BaseDeDatos db = new BaseDeDatos();
+        try {
+            db.conectar(clientesDB, usuarioDB, contrasenaDB);
+            String consulta = "";
+            db.modificar(consulta);
+        } catch (SQLException e) {
+            
+        }
+        
+    }//GEN-LAST:event_btnPrestarActionPerformed
+
+    private void tbxCantidadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tbxCantidadActionPerformed
+        btnPrestarActionPerformed(null);
+    }//GEN-LAST:event_tbxCantidadActionPerformed
+
+    private boolean esFloat(char c) {
+        try {
+            Float.parseFloat(String.valueOf(c));
+        } catch (java.lang.NumberFormatException e) {
+            return false;
+        }
+        return true;
+    }
+    
+    private void tbxCantidadKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tbxCantidadKeyTyped
+        //Si el caracter introducido no es un numero no se permite colocarlo
+        if ( !(esFloat(evt.getKeyChar()))) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_tbxCantidadKeyTyped
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnPrestar;
-    private javax.swing.JComboBox<String> jComboBox1;
-    private javax.swing.JComboBox<String> jComboBox2;
+    private javax.swing.JComboBox<String> cbxClientes;
+    private javax.swing.JComboBox<String> cbxTiempoPrestamo;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JSpinner jSpinner1;
     private javax.swing.JLabel lblCliente;
+    private javax.swing.JTextField tbxCantidad;
     // End of variables declaration//GEN-END:variables
 }
