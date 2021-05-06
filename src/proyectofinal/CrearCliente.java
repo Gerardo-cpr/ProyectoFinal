@@ -1,8 +1,7 @@
 package proyectofinal;
 
 import java.sql.*;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
 /**
@@ -14,11 +13,12 @@ public class CrearCliente extends javax.swing.JFrame {
     private final String clientesDB = "sql5407871";
     private final String usuarioDB = "sql5407871";
     private final String contrasenaDB = "Mt1I2E9GtN";
-    
+    private ArrayList<Cliente> clientes;
     private int encargadoID;
     
-    public CrearCliente(javax.swing.JFrame parent, int encargadoID) {
+    public CrearCliente(javax.swing.JFrame parent, int encargadoID, ArrayList<Cliente> clientes) {
         initComponents();
+        this.clientes = clientes;
         setLocationRelativeTo(null);
         this.parent = parent;
         this.encargadoID = encargadoID;
@@ -35,6 +35,7 @@ public class CrearCliente extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setAlwaysOnTop(true);
+        setResizable(false);
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosed(java.awt.event.WindowEvent evt) {
                 formWindowClosed(evt);
@@ -45,6 +46,12 @@ public class CrearCliente extends javax.swing.JFrame {
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
+            }
+        });
+
+        lblNombreCliente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                lblNombreClienteActionPerformed(evt);
             }
         });
 
@@ -92,8 +99,22 @@ public class CrearCliente extends javax.swing.JFrame {
         parent.setEnabled(true);
         parent.setAlwaysOnTop(true);
     }//GEN-LAST:event_formWindowClosed
-
+    private boolean existeCliente(String nombre) {
+        for (Cliente cliente : clientes) {
+            if (cliente.getNombre().equals(nombre)) {
+                return true;
+            }
+        }
+        return false;
+    }
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        if (lblNombreCliente.getText().length() < 1 || lblNombreCliente.getText().charAt(0) == ' ') {
+            JOptionPane.showMessageDialog(this, "Nombre invalido", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+        if (existeCliente(lblNombreCliente.getText())) {
+            JOptionPane.showMessageDialog(this, "Ya existe un cliente con el mismo nombre", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
         try {
             BaseDeDatos db = new BaseDeDatos();
             db.conectar(clientesDB, usuarioDB, contrasenaDB);
@@ -102,15 +123,19 @@ public class CrearCliente extends javax.swing.JFrame {
             db.modificar(consulta);
             db.desconectar();
             AsyncDB.recargardb();
-             JOptionPane.showMessageDialog(this, "Cliente creado correctamente", "Correcto", JOptionPane.INFORMATION_MESSAGE);
-             this.setAlwaysOnTop(false);
-             AsyncDB.recargardb();
-             this.dispose();
+            JOptionPane.showMessageDialog(this, "Cliente creado correctamente", "Correcto", JOptionPane.INFORMATION_MESSAGE);
+            this.setAlwaysOnTop(false);
+            AsyncDB.recargardb();
+            this.dispose();
         } catch (SQLException ex) {
             ex.printStackTrace();
             JOptionPane.showMessageDialog(this, "Error al guardar al cliente", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void lblNombreClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_lblNombreClienteActionPerformed
+        jButton1ActionPerformed(null);
+    }//GEN-LAST:event_lblNombreClienteActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;

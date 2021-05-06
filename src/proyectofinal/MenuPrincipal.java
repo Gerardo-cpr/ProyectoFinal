@@ -285,7 +285,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
     private void jMenuItem6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem6ActionPerformed
         this.setEnabled(false);
         this.setAlwaysOnTop(false);
-        new CrearCliente(this, encargadoId).setVisible(true);
+        new CrearCliente(this, encargadoId, clientes).setVisible(true);
     }//GEN-LAST:event_jMenuItem6ActionPerformed
 
     private void menuCerrarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuCerrarSesionActionPerformed
