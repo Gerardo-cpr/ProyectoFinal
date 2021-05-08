@@ -9,7 +9,7 @@ import javax.swing.JProgressBar;
  *
  * @author gerardo
  */
-public class AsyncDB extends Thread {
+public class AsyncMainTableRefresh extends Thread {
    private static boolean parametros = false;
    private static String consulta;
    private static String nombre;
@@ -20,10 +20,10 @@ public class AsyncDB extends Thread {
    private static JProgressBar progreso;
    private static ArrayList<Cliente> clientes;
 
-    public AsyncDB() {
+    public AsyncMainTableRefresh() {
     }
     
-    public AsyncDB(String consulta, String nombre, String usuario, String contra, MenuPrincipal menu, JProgressBar progreso, ArrayList<Cliente> clientes) {
+    public AsyncMainTableRefresh(String consulta, String nombre, String usuario, String contra, MenuPrincipal menu, JProgressBar progreso, ArrayList<Cliente> clientes) {
         parametros = true;
         this.consulta = consulta;
         this.nombre = nombre;

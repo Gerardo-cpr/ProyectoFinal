@@ -52,7 +52,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
     public final void actualizarTabla() {
         lblCargando.setText("Cargando");
         String consulta = "SELECT* FROM clientes WHERE encargado_id = \"" + encargadoId + "\" " + "ORDER BY monto_restante DESC";
-        new AsyncDB(consulta, clientesDB, usuarioDB, contrasenaDB, this, barraDeProgreso, clientes).start();
+        new AsyncMainTableRefresh(consulta, clientesDB, usuarioDB, contrasenaDB, this, barraDeProgreso, clientes).start();
     }
     public void finalRellenoTabla() {
        lblCargando.setText("Da click en el cliente para mas informacion");
@@ -300,7 +300,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
     private void jMenuItem6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem6ActionPerformed
         this.setEnabled(false);
         this.setAlwaysOnTop(false);
-        new CrearCliente(this, encargadoId, clientes).setVisible(true);
+        new CrearCliente(this, encargadoId, clientes, this, barraDeProgreso).setVisible(true);
     }//GEN-LAST:event_jMenuItem6ActionPerformed
 
     private void menuCerrarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuCerrarSesionActionPerformed
@@ -310,9 +310,18 @@ public class MenuPrincipal extends javax.swing.JFrame {
 
     private void tablaDeudoresMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaDeudoresMouseClicked
         int numeroFila = (int)Math.floor(evt.getY() / 48);
-        mostrarCliente(clientes.get(numeroFila));
-        this.setEnabled(false);
-        this.setAlwaysOnTop(false);
+        Cliente clienteSeleccionado = clientes.get(numeroFila);
+        
+        if (clienteSeleccionado.getTotalPrestado() > 0.1f) {
+            mostrarCliente(clienteSeleccionado);
+            this.setEnabled(false);
+            this.setAlwaysOnTop(false);
+        } else {
+            if (JOptionPane.showConfirmDialog(this, "Este cliente no debe nada, ¿Desea borrarlo?", "", JOptionPane.YES_NO_OPTION) == 0) {
+                String consulta = "DELETE FROM clientes WHERE id = " + clienteSeleccionado.getId();
+                new AsyncDBModification(consulta, this, clientesDB, usuarioDB, contrasenaDB).start();
+            }
+        }
     }//GEN-LAST:event_tablaDeudoresMouseClicked
 
     private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed

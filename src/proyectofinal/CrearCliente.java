@@ -3,6 +3,7 @@ package proyectofinal;
 import java.sql.*;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
+import javax.swing.JProgressBar;
 
 /**
  *
@@ -13,15 +14,18 @@ public class CrearCliente extends javax.swing.JFrame {
     private final String clientesDB = "sql5407871";
     private final String usuarioDB = "sql5407871";
     private final String contrasenaDB = "Mt1I2E9GtN";
+    private MenuPrincipal menuPrincipal;
     private ArrayList<Cliente> clientes;
     private int encargadoID;
-    
-    public CrearCliente(javax.swing.JFrame parent, int encargadoID, ArrayList<Cliente> clientes) {
+    private JProgressBar barraDeProgreso;   
+    public CrearCliente(javax.swing.JFrame parent, int encargadoID, ArrayList<Cliente> clientes, MenuPrincipal menuPrincipal ,JProgressBar barraDeProgreso) {
         initComponents();
         this.clientes = clientes;
         setLocationRelativeTo(null);
         this.parent = parent;
         this.encargadoID = encargadoID;
+        this.barraDeProgreso = barraDeProgreso;
+        this.menuPrincipal = menuPrincipal;
     }
     private javax.swing.JFrame parent;
     @SuppressWarnings("unchecked")
@@ -122,10 +126,10 @@ public class CrearCliente extends javax.swing.JFrame {
                     + ") VALUES (" + encargadoID + ", " + "'" + lblNombreCliente.getText() + "'"  + ", 0, 0, 0, 0)";
             db.modificar(consulta);
             db.desconectar();
-            AsyncDB.recargardb();
+            consulta = "SELECT* FROM clientes WHERE encargado_id = \"" + encargadoID + "\" " + "ORDER BY monto_restante DESC";
+            new AsyncMainTableRefresh(consulta, clientesDB, usuarioDB, contrasenaDB, menuPrincipal, barraDeProgreso, clientes).start();
             JOptionPane.showMessageDialog(this, "Cliente creado correctamente", "Correcto", JOptionPane.INFORMATION_MESSAGE);
             this.setAlwaysOnTop(false);
-            AsyncDB.recargardb();
             this.dispose();
         } catch (SQLException ex) {
             ex.printStackTrace();

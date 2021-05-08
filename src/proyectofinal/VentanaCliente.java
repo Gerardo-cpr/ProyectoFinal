@@ -226,7 +226,7 @@ public class VentanaCliente extends javax.swing.JFrame {
             String consulta = "DELETE FROM clientes WHERE id="+id;
             db.modificar(consulta);
             db.desconectar();
-            AsyncDB.recargardb();
+            AsyncMainTableRefresh.recargardb();
              JOptionPane.showMessageDialog(this, "Cliente borrado exitosamente", "Correcto", JOptionPane.INFORMATION_MESSAGE);
              this.setAlwaysOnTop(false);
              this.dispose();

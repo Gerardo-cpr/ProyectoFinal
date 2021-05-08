@@ -126,7 +126,10 @@ public class CrearPrestamo extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnPrestarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPrestarActionPerformed
-
+        if (clientes.get(cbxClientes.getSelectedIndex()).getTotalPrestado() > 0.1f) {
+            JOptionPane.showMessageDialog(this, "Este cliente ya tiene un prestamo en curso", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
         int tiempoDePrestamo;
         switch (cbxTiempoPrestamo.getSelectedIndex()) {
             case 0:
@@ -156,12 +159,12 @@ public class CrearPrestamo extends javax.swing.JFrame {
         try {
             db.conectar(clientesDB, usuarioDB, contrasenaDB);
             String consulta = "UPDATE clientes" + " SET tiempo_prestamo = " + tiempoDePrestamo
-                    + ", total_prestado = " + tbxCantidad.getText() + " WHERE nombre = " 
-                    + "\'" + clientes.get(cbxClientes.getSelectedIndex()).getNombre() + "\';";
+                    + ", total_prestado = " + tbxCantidad.getText() + ", monto_restante = " + tbxCantidad.getText() + " WHERE nombre = " 
+                    + "\'" + clientes.get(cbxClientes.getSelectedIndex()).getNombre() + "\'";
             db.modificar(consulta);
             JOptionPane.showMessageDialog(this, "Prestamo creado correctamente", "Correcto", JOptionPane.INFORMATION_MESSAGE);
             this.dispose();
-            AsyncDB.recargardb();
+            AsyncMainTableRefresh.recargardb();
         } catch (SQLException e) {
             e.printStackTrace();
             JOptionPane.showMessageDialog(this, "Error al otorgar el prestamo", "Error", JOptionPane.ERROR_MESSAGE);
