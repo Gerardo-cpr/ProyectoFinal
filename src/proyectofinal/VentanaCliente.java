@@ -20,13 +20,16 @@ public class VentanaCliente extends javax.swing.JFrame {
     private final String contrasenaDB = "Mt1I2E9GtN";
     Cliente cliente;
     javax.swing.JFrame parent;
-    public VentanaCliente(javax.swing.JFrame parent, Cliente cliente) {
+    MenuPrincipal menuPrincipal;
+    
+    public VentanaCliente(javax.swing.JFrame parent, Cliente cliente, MenuPrincipal menuPrincipal) {
         initComponents();
         this.setLocationRelativeTo(null);
         this.setResizable(false);
         //this.setAlwaysOnTop(true);
         this.parent = parent;
         this.cliente = cliente;
+        this.menuPrincipal = menuPrincipal;
         llenarDatosCliente();
         inicializarAbonar();
     }
@@ -47,10 +50,6 @@ public class VentanaCliente extends javax.swing.JFrame {
             for(int i = 1; i <= mesesRestantes; i++) {
                 cbMesesAbonar.addItem(i + " meses");
             }
-        }
-        // En caso de que no deba nada
-        else {
-            
         }
     }
     @SuppressWarnings("unchecked")
@@ -97,6 +96,11 @@ public class VentanaCliente extends javax.swing.JFrame {
         lblRestanteConAbono.setText("Con el abono quedarian: n xxxx (nmeses)");
 
         btnPagar.setText("Pagar n ");
+        btnPagar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPagarActionPerformed(evt);
+            }
+        });
 
         cbMesesAbonar.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
@@ -141,8 +145,7 @@ public class VentanaCliente extends javax.swing.JFrame {
         lblAbonar.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblAbonar.setText("Abonar");
 
-        jButton1.setFont(new java.awt.Font("Verdana", 0, 18)); // NOI18N
-        jButton1.setText("Borrar");
+        jButton1.setText("Borrar cliente");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
@@ -157,6 +160,10 @@ public class VentanaCliente extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(6, 6, 6)
+                        .addComponent(jButton1)
+                        .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -171,10 +178,6 @@ public class VentanaCliente extends javax.swing.JFrame {
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(lblAbonar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addContainerGap())))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(166, 166, 166)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -194,8 +197,8 @@ public class VentanaCliente extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(pAbonar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addComponent(jButton1)
+                .addGap(21, 21, 21))
         );
 
         pack();
@@ -210,32 +213,48 @@ public class VentanaCliente extends javax.swing.JFrame {
     private void cbMesesAbonarItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cbMesesAbonarItemStateChanged
         int mesesAPagar = cbMesesAbonar.getSelectedIndex() + 1;
         float montoPorMes = (float)cliente.getTotalPrestado() / (float)cliente.getTiempoDePrestamo();
-        float montoAPagar = montoPorMes * mesesAPagar;
+        float montoAPagar = (int)(montoPorMes * mesesAPagar);
         btnPagar.setText("Pagar: " + montoAPagar);
         float montoRestanteConElAbono = cliente.getMontoRestante() - montoAPagar;
-        System.out.println("Monto restante " + cliente.getMontoRestante());
-        System.out.println("Monto a pagar " + montoAPagar);
         lblRestanteConAbono.setText("Con el abono quedarian: " + montoRestanteConElAbono);
         
     }//GEN-LAST:event_cbMesesAbonarItemStateChanged
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-                try {
+        try {
             BaseDeDatos db = new BaseDeDatos();
             int id=cliente.getId();
             db.conectar(clientesDB, usuarioDB, contrasenaDB);
-            String consulta = "DELETE FROM clientes WHERE id="+id;
+            String consulta = "DELETE FROM clientes WHERE id = "+id;
             db.modificar(consulta);
             db.desconectar();
             AsyncMainTableRefresh.recargardb();
-             JOptionPane.showMessageDialog(this, "Cliente borrado exitosamente", "Correcto", JOptionPane.INFORMATION_MESSAGE);
-             this.setAlwaysOnTop(false);
-             this.dispose();
+            JOptionPane.showMessageDialog(this, "Cliente borrado exitosamente", "Correcto", JOptionPane.INFORMATION_MESSAGE);
+            this.setAlwaysOnTop(false);
+            this.dispose();
         } catch (SQLException ex) {
             ex.printStackTrace();
             JOptionPane.showMessageDialog(this, "Error al borrar cliente", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void btnPagarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPagarActionPerformed
+        int mesesAPagar = cbMesesAbonar.getSelectedIndex() + 1;
+        float montoPorMes = (float)cliente.getTotalPrestado() / (float)cliente.getTiempoDePrestamo();
+        int montoAPagar = (int)montoPorMes * mesesAPagar;
+        int mesesPagados = cliente.getMesesPagados() + mesesAPagar;
+        int montoRestante = (int)cliente.getMontoRestante() - montoAPagar;
+        String consulta;
+        if (montoRestante > 0.1F) {
+            consulta = "UPDATE clientes SET meses_pagados = " + String.valueOf(mesesPagados) 
+                + ", monto_restante = " + montoRestante + " WHERE Id = " + cliente.getId();
+        } else {
+            consulta = "UPDATE clientes SET total_prestado = 0, meses_pagados = 0"
+                + ", monto_restante = 0, tiempo_prestamo = 0" + " WHERE Id = " + cliente.getId();;
+        }
+        new AsyncDBModification(consulta, menuPrincipal, clientesDB, usuarioDB, contrasenaDB).start();
+        this.dispose();
+    }//GEN-LAST:event_btnPagarActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

@@ -10,10 +10,10 @@ public class Cliente {
     private int mesesPagados;
     private int tiempoDePrestamo;
     private int encargadoID;
-    private float totalPrestado;
-    private float montoRestante;
+    private int totalPrestado;
+    private int montoRestante;
 
-    public Cliente(int id, String nombre, int mesesPagados, int tiempoDePrestamo, int encargadoID, float totalPrestado, float montoRestante) {
+    public Cliente(int id, String nombre, int mesesPagados, int tiempoDePrestamo, int encargadoID, int totalPrestado, int montoRestante) {
         this.id = id;
         this.nombre = nombre;
         this.mesesPagados = mesesPagados;
@@ -67,7 +67,7 @@ public class Cliente {
         return totalPrestado;
     }
 
-    public void setTotalPrestado(float totalPrestado) {
+    public void setTotalPrestado(int totalPrestado) {
         this.totalPrestado = totalPrestado;
     }
 
@@ -75,7 +75,7 @@ public class Cliente {
         return montoRestante;
     }
 
-    public void setMontoRestante(float montoRestante) {
+    public void setMontoRestante(int montoRestante) {
         this.montoRestante = montoRestante;
     }
 }

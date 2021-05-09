@@ -60,7 +60,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
     }
     
     public void mostrarCliente(Cliente cliente) {
-             new VentanaCliente(this, cliente).setVisible(true);
+         new VentanaCliente(this, cliente, this).setVisible(true);
     }
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents

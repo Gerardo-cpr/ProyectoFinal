@@ -49,8 +49,8 @@ public class AsyncMainTableRefresh extends Thread {
                 String nombre = respuesta.getString("nombre");
                 int mesesPagados = respuesta.getInt("meses_pagados");
                 int tiempoPrestamo = respuesta.getInt("tiempo_prestamo");
-                float totalPrestado = respuesta.getFloat("total_prestado");
-                float montoRestante = respuesta.getFloat("monto_restante");
+                int totalPrestado = respuesta.getInt("total_prestado");
+                int montoRestante = respuesta.getInt("monto_restante");
                 Cliente cliente = new Cliente(id, nombre, mesesPagados, tiempoPrestamo, encargado_id, totalPrestado, montoRestante);
                 menu.addCliente(cliente); //Es importante que se
                 clientes.add(cliente);    //añadan en el mismo orden
@@ -77,8 +77,8 @@ public class AsyncMainTableRefresh extends Thread {
                 String nombre = respuesta.getString("nombre");
                 int mesesPagados = respuesta.getInt("meses_pagados");
                 int tiempoPrestamo = respuesta.getInt("tiempo_prestamo");
-                float totalPrestado = respuesta.getFloat("total_prestado");
-                float montoRestante = respuesta.getFloat("monto_restante");
+                int totalPrestado = respuesta.getInt("total_prestado");
+                int montoRestante = respuesta.getInt("monto_restante");
                 Cliente cliente = new Cliente(id, nombre, mesesPagados, tiempoPrestamo, encargado_id, totalPrestado, montoRestante);
                 menu.addCliente(cliente); //Es importante que se
                 clientes.add(cliente);    //añadan en el mismo orden
