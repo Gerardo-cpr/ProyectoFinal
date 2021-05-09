@@ -174,7 +174,7 @@ public class InicioSesion extends javax.swing.JFrame {
     }//GEN-LAST:event_btnIniciarSesionActionPerformed
 
     private void txfContraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txfContraActionPerformed
-
+        btnIniciarSesionActionPerformed(null);
     }//GEN-LAST:event_txfContraActionPerformed
 
     private void txfContraKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txfContraKeyTyped

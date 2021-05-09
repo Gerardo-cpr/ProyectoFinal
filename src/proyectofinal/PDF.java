@@ -5,26 +5,13 @@
  */
 package proyectofinal;
 
-import java.awt.AWTException;
-
-import com.itextpdf.kernel.geom.Rectangle;
 import com.itextpdf.kernel.pdf.PdfDocument;
 import com.itextpdf.kernel.pdf.PdfWriter;
-import com.itextpdf.kernel.pdf.canvas.PdfCanvas;
-import com.itextpdf.kernel.pdf.xobject.PdfFormXObject;
-import com.itextpdf.layout.Canvas;
 import com.itextpdf.layout.Document;
-import com.itextpdf.layout.borders.Border;
 import com.itextpdf.layout.element.Cell;
 import com.itextpdf.layout.element.Paragraph;
 import com.itextpdf.layout.element.Table;
-import com.itextpdf.layout.layout.LayoutArea;
-import com.itextpdf.layout.layout.LayoutContext;
-import com.itextpdf.layout.layout.LayoutResult;
 import com.itextpdf.layout.property.UnitValue;
-import com.itextpdf.layout.renderer.CellRenderer;
-import com.itextpdf.layout.renderer.DrawContext;
-import com.itextpdf.layout.renderer.IRenderer;
 import java.util.ArrayList;
 
 /**
@@ -38,7 +25,6 @@ public class PDF {
             PdfDocument pdfDocument = new PdfDocument(writer);
             Document document = new Document(pdfDocument);
             Table table = new Table(UnitValue.createPercentArray(6)).useAllAvailableWidth();
-            Cell cell1 = new Cell();   // Creating a cell
                         
             //Rellena los titulos de las columnas
             table.addCell(new Cell().add(new Paragraph("Id")).setFontSize(15));

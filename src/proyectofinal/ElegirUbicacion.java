@@ -19,6 +19,7 @@ public class ElegirUbicacion extends javax.swing.JFrame {
     MenuPrincipal menuPrincipal;
     public ElegirUbicacion(MenuPrincipal menuPrincipal) {
         initComponents();
+        setLocationRelativeTo(menuPrincipal);
         FileFilter pdfFilter = new FileFilter() {
            public boolean accept(File file) {
                return file.getName().endsWith(".pdf");
@@ -43,14 +44,16 @@ public class ElegirUbicacion extends javax.swing.JFrame {
 
         fileChooser = new javax.swing.JFileChooser();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setAlwaysOnTop(true);
+        setResizable(false);
 
         fileChooser.setAcceptAllFileFilterUsed(false);
         fileChooser.setDialogType(javax.swing.JFileChooser.SAVE_DIALOG);
         fileChooser.setApproveButtonText("Guardar");
         fileChooser.setApproveButtonToolTipText("");
         fileChooser.setDialogTitle("Seleccionar ubicacion");
-        fileChooser.setSelectedFile(new java.io.File("/nombreDelArchivo.pdf"));
+        fileChooser.setSelectedFile(new java.io.File("/nombre del archivo.pdf"));
         fileChooser.setToolTipText("");
         fileChooser.setName(""); // NOI18N
         fileChooser.addActionListener(new java.awt.event.ActionListener() {
