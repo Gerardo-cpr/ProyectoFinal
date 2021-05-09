@@ -17,10 +17,11 @@ public class CrearPrestamo extends javax.swing.JFrame {
     private javax.swing.JFrame parent;
     public CrearPrestamo(ArrayList<Cliente> clientes, javax.swing.JFrame parent) {
         initComponents();
-        this.setAlwaysOnTop(true);
+        // this.setAlwaysOnTop(true);
         this.parent = parent;
         this.clientes = clientes;
         this.setLocationRelativeTo(null);
+        AsyncMainTableRefresh.recargardb();
         iniciarlizarInterfaz();
     }
     private void iniciarlizarInterfaz() {
@@ -193,8 +194,9 @@ public class CrearPrestamo extends javax.swing.JFrame {
     }//GEN-LAST:event_tbxCantidadKeyTyped
 
     private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
+        parent.setVisible(true);
         parent.setEnabled(true);
-        parent.setAlwaysOnTop(true);
+        // parent.setAlwaysOnTop(true);
     }//GEN-LAST:event_formWindowClosed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

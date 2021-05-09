@@ -24,7 +24,7 @@ public class VentanaCliente extends javax.swing.JFrame {
         initComponents();
         this.setLocationRelativeTo(null);
         this.setResizable(false);
-        this.setAlwaysOnTop(true);
+        //this.setAlwaysOnTop(true);
         this.parent = parent;
         this.cliente = cliente;
         llenarDatosCliente();
@@ -202,8 +202,9 @@ public class VentanaCliente extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
+        parent.setVisible(true);
         parent.setEnabled(true);
-        parent.setAlwaysOnTop(true);
+        // parent.setAlwaysOnTop(true);
     }//GEN-LAST:event_formWindowClosed
 
     private void cbMesesAbonarItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cbMesesAbonarItemStateChanged
