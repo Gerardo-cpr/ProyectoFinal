@@ -101,7 +101,8 @@ public class CrearCliente extends javax.swing.JFrame {
 
     private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
         parent.setEnabled(true);
-        parent.setAlwaysOnTop(true);
+        //parent.setAlwaysOnTop(true);
+        parent.setVisible(true);
     }//GEN-LAST:event_formWindowClosed
     private boolean existeCliente(String nombre) {
         for (Cliente cliente : clientes) {
