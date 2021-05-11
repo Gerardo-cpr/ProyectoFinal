@@ -63,7 +63,7 @@ public class Cliente {
         this.tiempoDePrestamo = tiempoDePrestamo;
     }
 
-    public float getTotalPrestado() {
+    public int getTotalPrestado() {
         return totalPrestado;
     }
 

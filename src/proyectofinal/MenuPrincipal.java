@@ -43,10 +43,12 @@ public class MenuPrincipal extends javax.swing.JFrame {
     }
     //Esta funcion añade una fila a la tabla de clientes
     public void addCliente(Cliente cliente) {
+        System.out.println(cliente.getTiempoDePrestamo() );
+        int montoDelSiguientePago = (cliente.getTiempoDePrestamo() > 0 ? cliente.getTotalPrestado() / cliente.getTiempoDePrestamo() : 0 );
         DefaultTableModel model = (DefaultTableModel) tablaDeudores.getModel();
         model.addRow(new Object[]{cliente.getId(), cliente.getNombre(), cliente.getTotalPrestado(), 
             cliente.getTiempoDePrestamo() - cliente.getMesesPagados()
-                , cliente.getTotalPrestado() / cliente.getTiempoDePrestamo(), 
+                , montoDelSiguientePago, 
                cliente.getMontoRestante()});
     }
     //Esta funcion obtiene los datos de la base de datos que contiene informacion de los deudores y la llena

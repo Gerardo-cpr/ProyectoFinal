@@ -128,16 +128,6 @@ public class InicioSesion extends javax.swing.JFrame {
     }//GEN-LAST:event_txfUsuarioKeyTyped
 
     private void btnIniciarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIniciarSesionActionPerformed
-        if ("root".equals(txfUsuario.getText())) {
-           java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new MenuPrincipal(usuarioID).setVisible(true);
-            }
-        });
-           this.dispose();
-           return;
-        }
-        System.out.println("false");
         int id = 0;
         BaseDeDatos b = new BaseDeDatos();
         try {
