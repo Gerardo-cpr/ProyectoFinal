@@ -36,11 +36,13 @@ public class PDF {
             
             //Rellena la tabla con la informacion de clientes
             for (Cliente cliente : clientes) {
+                System.out.println("Correcto");
                 String id = String.valueOf(cliente.getId());
                 String nombre = cliente.getNombre();
                 String totalPrestado = String.valueOf(cliente.getTotalPrestado());
                 String tiempoRestanteDePrestamo = String.valueOf(cliente.getTiempoDePrestamo() - cliente.getMesesPagados());
-                String montoDelSiguientePago = String.valueOf(cliente.getTotalPrestado() / cliente.getTiempoDePrestamo());
+                String montoDelSiguientePago = String.valueOf(cliente.getTiempoDePrestamo() > 0 ? cliente.getTotalPrestado() / cliente.getTiempoDePrestamo() : 0 );
+                System.out.println(montoDelSiguientePago);
                 String montoRestante = String.valueOf(cliente.getMontoRestante());
                 table.addCell(new Cell().add(new Paragraph(id)));
                 table.addCell(new Cell().add(new Paragraph(nombre)));
