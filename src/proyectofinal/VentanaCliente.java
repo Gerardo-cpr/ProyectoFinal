@@ -216,7 +216,7 @@ public class VentanaCliente extends javax.swing.JFrame {
         float montoAPagar = (int)(montoPorMes * mesesAPagar);
         btnPagar.setText("Pagar: " + montoAPagar);
         float montoRestanteConElAbono = cliente.getMontoRestante() - montoAPagar;
-        lblRestanteConAbono.setText("Con el abono quedarian: " + montoRestanteConElAbono);
+        lblRestanteConAbono.setText("Con el abono quedarian: " + (montoRestanteConElAbono < 0 ? 0 : montoRestanteConElAbono));
         
     }//GEN-LAST:event_cbMesesAbonarItemStateChanged
 
@@ -240,12 +240,12 @@ public class VentanaCliente extends javax.swing.JFrame {
 
     private void btnPagarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPagarActionPerformed
         int mesesAPagar = cbMesesAbonar.getSelectedIndex() + 1;
-        float montoPorMes = (float)cliente.getTotalPrestado() / (float)cliente.getTiempoDePrestamo();
+        int montoPorMes = Math.round(cliente.getTotalPrestado() / cliente.getTiempoDePrestamo() + 1);
         int montoAPagar = (int)montoPorMes * mesesAPagar;
         int mesesPagados = cliente.getMesesPagados() + mesesAPagar;
         int montoRestante = (int)cliente.getMontoRestante() - montoAPagar;
         String consulta;
-        if (montoRestante > 0.1F) {
+        if (montoRestante > 2) {
             consulta = "UPDATE clientes SET meses_pagados = " + String.valueOf(mesesPagados) 
                 + ", monto_restante = " + montoRestante + " WHERE Id = " + cliente.getId();
         } else {

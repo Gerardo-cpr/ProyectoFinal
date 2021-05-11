@@ -43,7 +43,6 @@ public class MenuPrincipal extends javax.swing.JFrame {
     }
     //Esta funcion añade una fila a la tabla de clientes
     public void addCliente(Cliente cliente) {
-        System.out.println(cliente.getTiempoDePrestamo() );
         int montoDelSiguientePago = (cliente.getTiempoDePrestamo() > 0 ? cliente.getTotalPrestado() / cliente.getTiempoDePrestamo() : 0 );
         DefaultTableModel model = (DefaultTableModel) tablaDeudores.getModel();
         model.addRow(new Object[]{cliente.getId(), cliente.getNombre(), cliente.getTotalPrestado(), 
@@ -365,12 +364,10 @@ public class MenuPrincipal extends javax.swing.JFrame {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         String busqueda =jTextField1.getText();
-        System.out.println(busqueda);
         AsyncMainTableRefresh.busquedadb(encargadoId, busqueda);
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jCheckBoxMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBoxMenuItem2ActionPerformed
-        System.out.println(jCheckBoxMenuItem2.getState());
         if(jCheckBoxMenuItem2.getState() == true){
             jPanel1.setVisible(true);
         }else{
@@ -384,7 +381,6 @@ public class MenuPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem2ActionPerformed
     public void guardarTablaEnPdf(String nombreDelArchivo) {
         if (PDF.guardarEnArchivo(nombreDelArchivo, clientes)) {
-            System.out.println("Correcto");
         } else {
             System.out.println("Error");
         }

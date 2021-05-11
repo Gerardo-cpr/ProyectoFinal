@@ -149,7 +149,6 @@ public class CrearPrestamo extends javax.swing.JFrame {
                 tiempoDePrestamo = 0;
                 break;
         }
-        float cantidadAPrestar = 0;
         try {
             Float.parseFloat(tbxCantidad.getText());
         } catch(java.lang.NumberFormatException e) {
