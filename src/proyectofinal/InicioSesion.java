@@ -113,9 +113,8 @@ public class InicioSesion extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
             
     private void btnCrearUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCrearUsuarioActionPerformed
-
-        new CrearUsuario(this).setVisible(true);
         this.setEnabled(false);
+        new CrearUsuario(this).setVisible(true);
     }//GEN-LAST:event_btnCrearUsuarioActionPerformed
 
     private void txfUsuarioKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txfUsuarioKeyTyped
