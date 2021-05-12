@@ -10,16 +10,16 @@ public class Cliente {
     private int mesesPagados;
     private int tiempoDePrestamo;
     private int encargadoID;
-    private int totalPrestado;
+    private int deudaTotal;
     private int montoRestante;
 
-    public Cliente(int id, String nombre, int mesesPagados, int tiempoDePrestamo, int encargadoID, int totalPrestado, int montoRestante) {
+    public Cliente(int id, String nombre, int mesesPagados, int tiempoDePrestamo, int encargadoID, int deudaTotal, int montoRestante) {
         this.id = id;
         this.nombre = nombre;
         this.mesesPagados = mesesPagados;
         this.tiempoDePrestamo = tiempoDePrestamo;
         this.encargadoID = encargadoID;
-        this.totalPrestado = totalPrestado;
+        this.deudaTotal = deudaTotal;
         this.montoRestante = montoRestante;
     }
 
@@ -63,12 +63,12 @@ public class Cliente {
         this.tiempoDePrestamo = tiempoDePrestamo;
     }
 
-    public int getTotalPrestado() {
-        return totalPrestado;
+    public int getdeudaTotal() {
+        return deudaTotal;
     }
 
-    public void setTotalPrestado(int totalPrestado) {
-        this.totalPrestado = totalPrestado;
+    public void setdeudaTotal(int deudaTotal) {
+        this.deudaTotal = deudaTotal;
     }
 
     public float getMontoRestante() {

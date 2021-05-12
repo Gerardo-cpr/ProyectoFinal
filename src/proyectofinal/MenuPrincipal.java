@@ -37,9 +37,9 @@ public class MenuPrincipal extends javax.swing.JFrame {
     }
     //Esta funcion añade una fila a la tabla de clientes
     public void addCliente(Cliente cliente) {
-        int montoDelSiguientePago = (cliente.getTiempoDePrestamo() > 0 ? cliente.getTotalPrestado() / cliente.getTiempoDePrestamo() : 0 );
+        int montoDelSiguientePago = (cliente.getTiempoDePrestamo() > 0 ? cliente.getdeudaTotal() / cliente.getTiempoDePrestamo() : 0 );
         DefaultTableModel model = (DefaultTableModel) tablaDeudores.getModel();
-        model.addRow(new Object[]{cliente.getId(), cliente.getNombre(), cliente.getTotalPrestado(), 
+        model.addRow(new Object[]{cliente.getId(), cliente.getNombre(), cliente.getdeudaTotal(), 
             cliente.getTiempoDePrestamo() - cliente.getMesesPagados()
                 , montoDelSiguientePago, 
                cliente.getMontoRestante()});
@@ -134,11 +134,11 @@ public class MenuPrincipal extends javax.swing.JFrame {
 
             },
             new String [] {
-                "ID", "Cliente", "Total prestado", "Tiempo restante de prestamo", "Monto del siguiente pago", "Monto total deuda restante"
+                "ID", "Cliente", "Deuda Total", "Tiempo restante de prestamo", "Monto del siguiente pago", "Monto total deuda restante"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.String.class, java.lang.Float.class, java.lang.Integer.class, java.lang.Float.class, java.lang.Float.class
+                java.lang.Integer.class, java.lang.String.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Float.class
             };
             boolean[] canEdit = new boolean [] {
                 false, false, false, false, false, false
@@ -336,7 +336,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
     private void tablaDeudoresMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaDeudoresMouseClicked
         int numeroFila = (int)Math.floor(evt.getY() / 48);
         Cliente clienteSeleccionado = clientes.get(numeroFila);
-        if (clienteSeleccionado.getTotalPrestado() > 0.1f) {
+        if (clienteSeleccionado.getdeudaTotal() > 0.1f) {
             this.setEnabled(false);
             this.setAlwaysOnTop(false);
             mostrarCliente(clienteSeleccionado);

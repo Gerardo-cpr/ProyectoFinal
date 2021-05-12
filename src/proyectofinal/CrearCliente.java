@@ -123,7 +123,7 @@ public class CrearCliente extends javax.swing.JFrame {
         try {
             BaseDeDatos db = new BaseDeDatos();
             db.conectar(clientesDB, usuarioDB, contrasenaDB);
-            String consulta = "INSERT INTO clientes" + " (encargado_id, nombre, meses_pagados, tiempo_prestamo, total_prestado, monto_restante"
+            String consulta = "INSERT INTO clientes" + " (encargado_id, nombre, meses_pagados, tiempo_prestamo, deuda_total, monto_restante"
                     + ") VALUES (" + encargadoID + ", " + "'" + lblNombreCliente.getText() + "'"  + ", 0, 0, 0, 0)";
             db.modificar(consulta);
             db.desconectar();
@@ -131,6 +131,7 @@ public class CrearCliente extends javax.swing.JFrame {
             new AsyncMainTableRefresh(consulta, clientesDB, usuarioDB, contrasenaDB, menuPrincipal, barraDeProgreso, clientes).start();
             JOptionPane.showMessageDialog(this, "Cliente creado correctamente", "Correcto", JOptionPane.INFORMATION_MESSAGE);
             this.setAlwaysOnTop(false);
+            parent.setVisible(true);
             this.dispose();
         } catch (SQLException ex) {
             ex.printStackTrace();

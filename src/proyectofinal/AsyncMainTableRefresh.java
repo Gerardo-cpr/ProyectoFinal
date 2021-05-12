@@ -49,9 +49,9 @@ public class AsyncMainTableRefresh extends Thread {
                 String nombre = respuesta.getString("nombre");
                 int mesesPagados = respuesta.getInt("meses_pagados");
                 int tiempoPrestamo = respuesta.getInt("tiempo_prestamo");
-                int totalPrestado = respuesta.getInt("total_prestado");
+                int deudaTotal = respuesta.getInt("deuda_total");
                 int montoRestante = respuesta.getInt("monto_restante");
-                Cliente cliente = new Cliente(id, nombre, mesesPagados, tiempoPrestamo, encargado_id, totalPrestado, montoRestante);
+                Cliente cliente = new Cliente(id, nombre, mesesPagados, tiempoPrestamo, encargado_id, deudaTotal, montoRestante);
                 menu.addCliente(cliente); //Es importante que se
                 clientes.add(cliente);    //añadan en el mismo orden
             }
@@ -77,9 +77,9 @@ public class AsyncMainTableRefresh extends Thread {
                 String nombre = respuesta.getString("nombre");
                 int mesesPagados = respuesta.getInt("meses_pagados");
                 int tiempoPrestamo = respuesta.getInt("tiempo_prestamo");
-                int totalPrestado = respuesta.getInt("total_prestado");
+                int deudaTotal = respuesta.getInt("deuda_total");
                 int montoRestante = respuesta.getInt("monto_restante");
-                Cliente cliente = new Cliente(id, nombre, mesesPagados, tiempoPrestamo, encargado_id, totalPrestado, montoRestante);
+                Cliente cliente = new Cliente(id, nombre, mesesPagados, tiempoPrestamo, encargado_id, deudaTotal, montoRestante);
                 menu.addCliente(cliente); //Es importante que se
                 clientes.add(cliente);    //añadan en el mismo orden
             }
@@ -103,9 +103,9 @@ public class AsyncMainTableRefresh extends Thread {
                 String nombre = respuesta.getString("nombre");
                 int mesesPagados = respuesta.getInt("meses_pagados");
                 int tiempoPrestamo = respuesta.getInt("tiempo_prestamo");
-                int totalPrestado = respuesta.getInt("total_prestado");
+                int deudaTotal = respuesta.getInt("deuda_total");
                 int montoRestante = respuesta.getInt("monto_restante");
-                Cliente cliente = new Cliente(id, nombre, mesesPagados, tiempoPrestamo, encargado_id, totalPrestado, montoRestante);
+                Cliente cliente = new Cliente(id, nombre, mesesPagados, tiempoPrestamo, encargado_id, deudaTotal, montoRestante);
                 menu.addCliente(cliente); //Es importante que se
                 clientes.add(cliente);    //añadan en el mismo orden
             }

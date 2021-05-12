@@ -127,7 +127,7 @@ public class CrearPrestamo extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnPrestarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPrestarActionPerformed
-        if (clientes.get(cbxClientes.getSelectedIndex()).getTotalPrestado() > 0.1f) {
+        if (clientes.get(cbxClientes.getSelectedIndex()).getdeudaTotal() > 0.1f) {
             JOptionPane.showMessageDialog(this, "Este cliente ya tiene un prestamo en curso", "Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
@@ -159,7 +159,7 @@ public class CrearPrestamo extends javax.swing.JFrame {
         try {
             db.conectar(clientesDB, usuarioDB, contrasenaDB);
             String consulta = "UPDATE clientes" + " SET tiempo_prestamo = " + tiempoDePrestamo
-                    + ", total_prestado = " + tbxCantidad.getText() + ", monto_restante = " + tbxCantidad.getText() + " WHERE nombre = " 
+                    + ", deuda_total = " + tbxCantidad.getText() + ", monto_restante = " + tbxCantidad.getText() + " WHERE nombre = " 
                     + "\'" + clientes.get(cbxClientes.getSelectedIndex()).getNombre() + "\'";
             db.modificar(consulta);
             JOptionPane.showMessageDialog(this, "Prestamo creado correctamente", "Correcto", JOptionPane.INFORMATION_MESSAGE);

@@ -36,9 +36,9 @@ public class VentanaCliente extends javax.swing.JFrame {
     //Inicializa la parte de cliente
     void llenarDatosCliente() {
         lblNombre.setText("Cliente: " + cliente.getNombre());
-        lblMontoPrestado.setText("Monto prestado: " + cliente.getTotalPrestado());
+        lblMontoPrestado.setText("Monto de la deuda: " + cliente.getdeudaTotal());
         lblTiempoPrestamo.setText("Tiempo de prestamo: " + cliente.getTiempoDePrestamo());
-        float totalPagado = cliente.getMesesPagados() * (cliente.getTotalPrestado() / cliente.getTiempoDePrestamo());
+        float totalPagado = cliente.getMesesPagados() * (cliente.getdeudaTotal() / cliente.getTiempoDePrestamo());
         lblTotalPagado.setText("Total pagado: " + totalPagado + " (" + cliente.getMesesPagados() + " meses)");
         int mesesRestantes = cliente.getTiempoDePrestamo() - cliente.getMesesPagados();
         lblRestante.setText("Restante: " + (cliente.getMontoRestante()) + " (" + mesesRestantes + " meses)");
@@ -82,7 +82,7 @@ public class VentanaCliente extends javax.swing.JFrame {
         lblNombre.setText("Cliente:");
 
         lblMontoPrestado.setFont(new java.awt.Font("Verdana", 0, 18)); // NOI18N
-        lblMontoPrestado.setText("Monto prestado: ");
+        lblMontoPrestado.setText("Monto de la deuda: ");
 
         lblTiempoPrestamo.setFont(new java.awt.Font("Helvetica Neue", 0, 18)); // NOI18N
         lblTiempoPrestamo.setText("Tiempo de prestamo: ");
@@ -212,7 +212,7 @@ public class VentanaCliente extends javax.swing.JFrame {
 
     private void cbMesesAbonarItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cbMesesAbonarItemStateChanged
         int mesesAPagar = cbMesesAbonar.getSelectedIndex() + 1;
-        float montoPorMes = (float)cliente.getTotalPrestado() / (float)cliente.getTiempoDePrestamo();
+        float montoPorMes = (float)cliente.getdeudaTotal() / (float)cliente.getTiempoDePrestamo();
         float montoAPagar = (int)(montoPorMes * mesesAPagar);
         btnPagar.setText("Pagar: " + montoAPagar);
         float montoRestanteConElAbono = cliente.getMontoRestante() - montoAPagar;
@@ -240,7 +240,7 @@ public class VentanaCliente extends javax.swing.JFrame {
 
     private void btnPagarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPagarActionPerformed
         int mesesAPagar = cbMesesAbonar.getSelectedIndex() + 1;
-        int montoPorMes = Math.round(cliente.getTotalPrestado() / cliente.getTiempoDePrestamo() + 1);
+        int montoPorMes = Math.round(cliente.getdeudaTotal() / cliente.getTiempoDePrestamo() + 1);
         int montoAPagar = (int)montoPorMes * mesesAPagar;
         int mesesPagados = cliente.getMesesPagados() + mesesAPagar;
         int montoRestante = (int)cliente.getMontoRestante() - montoAPagar;
@@ -249,7 +249,7 @@ public class VentanaCliente extends javax.swing.JFrame {
             consulta = "UPDATE clientes SET meses_pagados = " + String.valueOf(mesesPagados) 
                 + ", monto_restante = " + montoRestante + " WHERE Id = " + cliente.getId();
         } else {
-            consulta = "UPDATE clientes SET total_prestado = 0, meses_pagados = 0"
+            consulta = "UPDATE clientes SET deuda_total = 0, meses_pagados = 0"
                 + ", monto_restante = 0, tiempo_prestamo = 0" + " WHERE Id = " + cliente.getId();;
         }
         new AsyncDBModification(consulta, menuPrincipal, clientesDB, usuarioDB, contrasenaDB).start();

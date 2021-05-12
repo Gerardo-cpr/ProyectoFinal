@@ -38,13 +38,13 @@ public class PDF {
             for (Cliente cliente : clientes) {
                 String id = String.valueOf(cliente.getId());
                 String nombre = cliente.getNombre();
-                String totalPrestado = String.valueOf(cliente.getTotalPrestado());
+                String deudaTotal = String.valueOf(cliente.getdeudaTotal());
                 String tiempoRestanteDePrestamo = String.valueOf(cliente.getTiempoDePrestamo() - cliente.getMesesPagados());
-                String montoDelSiguientePago = String.valueOf(cliente.getTiempoDePrestamo() > 0 ? cliente.getTotalPrestado() / cliente.getTiempoDePrestamo() : 0 );
+                String montoDelSiguientePago = String.valueOf(cliente.getTiempoDePrestamo() > 0 ? cliente.getdeudaTotal() / cliente.getTiempoDePrestamo() : 0 );
                 String montoRestante = String.valueOf(cliente.getMontoRestante());
                 table.addCell(new Cell().add(new Paragraph(id)));
                 table.addCell(new Cell().add(new Paragraph(nombre)));
-                table.addCell(new Cell().add(new Paragraph(totalPrestado)));
+                table.addCell(new Cell().add(new Paragraph(deudaTotal)));
                 table.addCell(new Cell().add(new Paragraph(tiempoRestanteDePrestamo)));
                 table.addCell(new Cell().add(new Paragraph(montoDelSiguientePago)));
                 table.addCell(new Cell().add(new Paragraph(montoRestante)));

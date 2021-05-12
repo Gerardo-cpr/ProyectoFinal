@@ -260,9 +260,9 @@
                   <Table columnCount="6" rowCount="0">
                     <Column editable="false" title="ID" type="java.lang.Integer"/>
                     <Column editable="false" title="Cliente" type="java.lang.String"/>
-                    <Column editable="false" title="Total prestado" type="java.lang.Float"/>
+                    <Column editable="false" title="Deuda Total" type="java.lang.Integer"/>
                     <Column editable="false" title="Tiempo restante de prestamo" type="java.lang.Integer"/>
-                    <Column editable="false" title="Monto del siguiente pago" type="java.lang.Float"/>
+                    <Column editable="false" title="Monto del siguiente pago" type="java.lang.Integer"/>
                     <Column editable="false" title="Monto total deuda restante" type="java.lang.Float"/>
                   </Table>
                 </Property>
