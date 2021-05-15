@@ -89,6 +89,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
         jMenu10 = new javax.swing.JMenu();
         jCheckBoxMenuItem2 = new javax.swing.JCheckBoxMenuItem();
         jMenuItem6 = new javax.swing.JMenuItem();
+        jMenuItem2 = new javax.swing.JMenuItem();
 
         jMenu3.setText("File");
         jMenuBar2.add(jMenu3);
@@ -277,6 +278,14 @@ public class MenuPrincipal extends javax.swing.JFrame {
         });
         jMenu10.add(jMenuItem6);
 
+        jMenuItem2.setText("Actualizar");
+        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem2ActionPerformed(evt);
+            }
+        });
+        jMenu10.add(jMenuItem2);
+
         jMenuBar1.add(jMenu10);
 
         setJMenuBar(jMenuBar1);
@@ -399,6 +408,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuBar jMenuBar2;
     private javax.swing.JMenuBar jMenuBar3;
     private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JMenuItem jMenuItem6;

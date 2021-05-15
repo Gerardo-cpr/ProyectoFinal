@@ -155,14 +155,17 @@ public class CrearPrestamo extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Introduce la cantidad a prestar", "Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
+        float intereses = Math.round(Float.parseFloat(tbxCantidad.getText())*0.10*tiempoDePrestamo);
+        float deuda = Float.parseFloat(tbxCantidad.getText())+intereses;
         BaseDeDatos db = new BaseDeDatos();
         try {
             db.conectar(clientesDB, usuarioDB, contrasenaDB);
             String consulta = "UPDATE clientes" + " SET tiempo_prestamo = " + tiempoDePrestamo
-                    + ", deuda_total = " + tbxCantidad.getText() + ", monto_restante = " + tbxCantidad.getText() + " WHERE nombre = " 
+                    + ", deuda_total = " + deuda + ", monto_restante = " + deuda + " WHERE nombre = " 
                     + "\'" + clientes.get(cbxClientes.getSelectedIndex()).getNombre() + "\'";
             db.modificar(consulta);
             JOptionPane.showMessageDialog(this, "Prestamo creado correctamente", "Correcto", JOptionPane.INFORMATION_MESSAGE);
+            parent.setVisible(true);
             this.dispose();
             AsyncMainTableRefresh.recargardb();
         } catch (SQLException e) {
