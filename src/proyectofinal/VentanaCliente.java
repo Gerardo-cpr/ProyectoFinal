@@ -9,7 +9,8 @@ import java.sql.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
-
+import java.text.SimpleDateFormat;
+import java.util.Date;
 /**
  *
  * @author gerardo
@@ -56,6 +57,7 @@ public class VentanaCliente extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jPanel1 = new javax.swing.JPanel();
         lblNombre = new javax.swing.JLabel();
         lblMontoPrestado = new javax.swing.JLabel();
         lblTiempoPrestamo = new javax.swing.JLabel();
@@ -68,6 +70,18 @@ public class VentanaCliente extends javax.swing.JFrame {
         lblMesesAPagar = new javax.swing.JLabel();
         lblAbonar = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 100, Short.MAX_VALUE)
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 100, Short.MAX_VALUE)
+        );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Cliente");
@@ -152,6 +166,13 @@ public class VentanaCliente extends javax.swing.JFrame {
             }
         });
 
+        jButton2.setText("Ver historial de pagos");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -160,10 +181,6 @@ public class VentanaCliente extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(6, 6, 6)
-                        .addComponent(jButton1)
-                        .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -177,7 +194,13 @@ public class VentanaCliente extends javax.swing.JFrame {
                         .addContainerGap())
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(lblAbonar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addContainerGap())))
+                        .addContainerGap())
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(38, 38, 38)
+                        .addComponent(jButton1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(48, 48, 48))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -197,7 +220,9 @@ public class VentanaCliente extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(pAbonar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton1)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton1)
+                    .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(21, 21, 21))
         );
 
@@ -212,7 +237,8 @@ public class VentanaCliente extends javax.swing.JFrame {
 
     private void cbMesesAbonarItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cbMesesAbonarItemStateChanged
         int mesesAPagar = cbMesesAbonar.getSelectedIndex() + 1;
-        float montoPorMes = (float)cliente.getdeudaTotal() / (float)cliente.getTiempoDePrestamo();
+        //float montoPorMes = (float)cliente.getdeudaTotal() / (float)cliente.getTiempoDePrestamo();
+        int montoPorMes = Math.round(cliente.getdeudaTotal() / cliente.getTiempoDePrestamo() + 1);
         float montoAPagar = (int)(montoPorMes * mesesAPagar);
         btnPagar.setText("Pagar: " + montoAPagar);
         float montoRestanteConElAbono = cliente.getMontoRestante() - montoAPagar;
@@ -225,8 +251,8 @@ public class VentanaCliente extends javax.swing.JFrame {
             BaseDeDatos db = new BaseDeDatos();
             int id=cliente.getId();
             db.conectar(clientesDB, usuarioDB, contrasenaDB);
-            String consulta = "DELETE FROM clientes WHERE id = "+id;
-            db.modificar(consulta);
+            db.modificar("DELETE FROM clientes WHERE id = "+id);
+            db.modificar("DELETE FROM historial WHERE id = "+id);
             db.desconectar();
             AsyncMainTableRefresh.recargardb();
             JOptionPane.showMessageDialog(this, "Cliente borrado exitosamente", "Correcto", JOptionPane.INFORMATION_MESSAGE);
@@ -253,14 +279,33 @@ public class VentanaCliente extends javax.swing.JFrame {
                 + ", monto_restante = 0, tiempo_prestamo = 0" + " WHERE Id = " + cliente.getId();;
         }
         new AsyncDBModification(consulta, menuPrincipal, clientesDB, usuarioDB, contrasenaDB).start();
+        RegistrarPago(montoAPagar);
         this.dispose();
     }//GEN-LAST:event_btnPagarActionPerformed
 
-
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        new HistorialCliente(parent, cliente, menuPrincipal).setVisible(true);
+    }//GEN-LAST:event_jButton2ActionPerformed
+    private void RegistrarPago(int montoapagar){
+        try {
+            BaseDeDatos db = new BaseDeDatos();
+            Date fecha = new Date();
+            String strDateFormat = "dd/MM/YYYY hh:mm:ss aa"; 
+            SimpleDateFormat fecha2 = new SimpleDateFormat(strDateFormat);
+            db.conectar(clientesDB, usuarioDB, contrasenaDB);
+            String consulta = "INSERT INTO historial (id, pago,fecha) VALUES ("+cliente.getId()+","+montoapagar+",'"+fecha2.format(fecha)+"')";
+            db.modificar(consulta);
+            db.desconectar();
+        } catch (SQLException ex) {
+            Logger.getLogger(VentanaCliente.class.getName()).log(Level.SEVERE, null, ex);
+        }
+}
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JToggleButton btnPagar;
     private javax.swing.JComboBox<String> cbMesesAbonar;
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JLabel lblAbonar;
     private javax.swing.JLabel lblMesesAPagar;
     private javax.swing.JLabel lblMontoPrestado;
