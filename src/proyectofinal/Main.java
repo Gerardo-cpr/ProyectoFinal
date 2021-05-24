@@ -11,7 +11,6 @@ public class Main {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
                 }
-                System.out.println("No se encontro el tema de windows");
                 if ("Mac OS X".equals(info.getName())) {
                      javax.swing.UIManager.setLookAndFeel(info.getClassName());
                 }

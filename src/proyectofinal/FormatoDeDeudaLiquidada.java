@@ -19,7 +19,7 @@ public class FormatoDeDeudaLiquidada extends javax.swing.JFrame {
         this.menuPrincipal = menuPrincipal;
         initComponents();
         lblNombre.setText("Cliente: " + cliente.getNombre());
-        lblTotalPrestamo.setText(lblTotalPrestamo.getText() + cliente.getdeudaTotal() + "$");
+        lblTotalPrestamo.setText(lblTotalPrestamo.getText() +"$"+cliente.getdeudaTotal());
         lblPlazo.setText("Plazo de prestamo: " + cliente.getTiempoDePrestamo() + " meses");
         lblF.setText("El cliente " + cliente.getNombre() +  " ha liquidado toda su deuda.");
     }
@@ -44,7 +44,7 @@ public class FormatoDeDeudaLiquidada extends javax.swing.JFrame {
 
         lblTotalPrestamo.setFont(new java.awt.Font("Verdana", 0, 18)); // NOI18N
         lblTotalPrestamo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblTotalPrestamo.setText("Total prestado: ");
+        lblTotalPrestamo.setText("Deuda Total: ");
 
         lblPlazo.setFont(new java.awt.Font("Verdana", 0, 18)); // NOI18N
         lblPlazo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);

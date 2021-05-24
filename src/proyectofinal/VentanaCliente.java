@@ -37,6 +37,7 @@ public class VentanaCliente extends javax.swing.JFrame {
     //Inicializa la parte de cliente
     void llenarDatosCliente() {
         lblNombre.setText("Cliente: " + cliente.getNombre());
+        lblTotalPrestado.setText("Total Prestado: "+Math.round(cliente.getdeudaTotal()/(0.10*cliente.getTiempoDePrestamo()+1)));
         lblMontoPrestado.setText("Monto de la deuda: " + cliente.getdeudaTotal());
         lblTiempoPrestamo.setText("Tiempo de prestamo: " + cliente.getTiempoDePrestamo());
         float totalPagado = cliente.getMesesPagados() * (cliente.getdeudaTotal() / cliente.getTiempoDePrestamo());
@@ -71,6 +72,7 @@ public class VentanaCliente extends javax.swing.JFrame {
         lblAbonar = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
+        lblTotalPrestado = new javax.swing.JLabel();
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -173,6 +175,9 @@ public class VentanaCliente extends javax.swing.JFrame {
             }
         });
 
+        lblTotalPrestado.setFont(new java.awt.Font("Verdana", 0, 18)); // NOI18N
+        lblTotalPrestado.setText("Total Prestado: ");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -187,7 +192,8 @@ public class VentanaCliente extends javax.swing.JFrame {
                             .addComponent(lblTotalPagado, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(lblRestante)
                             .addComponent(lblTiempoPrestamo)
-                            .addComponent(lblMontoPrestado, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(lblMontoPrestado, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(lblTotalPrestado, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGap(83, 83, 83))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(pAbonar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -207,7 +213,9 @@ public class VentanaCliente extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(lblNombre)
-                .addGap(24, 24, 24)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(lblTotalPrestado)
+                .addGap(2, 2, 2)
                 .addComponent(lblMontoPrestado)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(lblTiempoPrestamo, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -215,7 +223,7 @@ public class VentanaCliente extends javax.swing.JFrame {
                 .addComponent(lblTotalPagado)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(lblRestante)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(lblAbonar)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(pAbonar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -237,8 +245,8 @@ public class VentanaCliente extends javax.swing.JFrame {
 
     private void cbMesesAbonarItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cbMesesAbonarItemStateChanged
         int mesesAPagar = cbMesesAbonar.getSelectedIndex() + 1;
-        //float montoPorMes = (float)cliente.getdeudaTotal() / (float)cliente.getTiempoDePrestamo();
-        int montoPorMes = Math.round(cliente.getdeudaTotal() / cliente.getTiempoDePrestamo() + 1);
+        float montoPorMes = (float)cliente.getdeudaTotal() / (float)cliente.getTiempoDePrestamo();
+        //int montoPorMes = Math.round(cliente.getdeudaTotal() / cliente.getTiempoDePrestamo() + 1);
         float montoAPagar = (int)(montoPorMes * mesesAPagar);
         btnPagar.setText("Pagar: " + montoAPagar);
         float montoRestanteConElAbono = cliente.getMontoRestante() - montoAPagar;
@@ -321,6 +329,7 @@ public class VentanaCliente extends javax.swing.JFrame {
     private javax.swing.JLabel lblRestanteConAbono;
     private javax.swing.JLabel lblTiempoPrestamo;
     private javax.swing.JLabel lblTotalPagado;
+    private javax.swing.JLabel lblTotalPrestado;
     private javax.swing.JPanel pAbonar;
     // End of variables declaration//GEN-END:variables
 }
