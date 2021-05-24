@@ -14,8 +14,8 @@ public class CrearPrestamo extends javax.swing.JFrame {
     private final String clientesDB = "sql5407871";
     private final String usuarioDB = "sql5407871";
     private final String contrasenaDB = "Mt1I2E9GtN";
-    private javax.swing.JFrame parent;
-    public CrearPrestamo(ArrayList<Cliente> clientes, javax.swing.JFrame parent) {
+    private MenuPrincipal parent;
+    public CrearPrestamo(ArrayList<Cliente> clientes, MenuPrincipal parent) {
         initComponents();
         // this.setAlwaysOnTop(true);
         this.parent = parent;

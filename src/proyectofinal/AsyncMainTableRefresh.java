@@ -36,13 +36,14 @@ public class AsyncMainTableRefresh extends Thread {
     public void run() {
         BaseDeDatos db = new BaseDeDatos();
         try {
-            progreso.setValue(25);
+            progreso.setValue(12);
             db.conectar(nombre, usuario, contra);
-            progreso.setValue(50);
+            progreso.setValue(25);
             respuesta = db.cosultar(consulta);
-            progreso.setValue(75);
+            progreso.setValue(50);
             menu.borrarTabla();
             clientes.removeAll(clientes);
+            progreso.setValue(75);
             while(respuesta.next()) {
                 int id = respuesta.getInt("id");
                 int encargado_id = respuesta.getInt("encargado_id");
@@ -67,10 +68,14 @@ public class AsyncMainTableRefresh extends Thread {
     public static void recargardb() {
         BaseDeDatos db = new BaseDeDatos();
         try {
+            progreso.setValue(12);
             db.conectar(nombre, usuario, contra);
+            progreso.setValue(25);
             respuesta = db.cosultar(consulta);
+            progreso.setValue(50);
             menu.borrarTabla();
             clientes.removeAll(clientes);
+            progreso.setValue(75);
             while(respuesta.next()) {
                 int id = respuesta.getInt("id");
                 int encargado_id = respuesta.getInt("encargado_id");
@@ -84,6 +89,7 @@ public class AsyncMainTableRefresh extends Thread {
                 clientes.add(cliente);    //añadan en el mismo orden
             }
             db.desconectar();
+            progreso.setValue(100);
         } catch (SQLException e) {
             e.printStackTrace();
             JOptionPane.showMessageDialog(null, "Error al conectarse con la base de datos", "Error", JOptionPane.ERROR_MESSAGE);

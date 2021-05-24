@@ -28,7 +28,7 @@ public class VentanaCliente extends javax.swing.JFrame {
         this.setLocationRelativeTo(null);
         this.setResizable(false);
         //this.setAlwaysOnTop(true);
-        this.parent = parent;
+        this.parent = menuPrincipal;
         this.cliente = cliente;
         this.menuPrincipal = menuPrincipal;
         llenarDatosCliente();
@@ -275,6 +275,13 @@ public class VentanaCliente extends javax.swing.JFrame {
             consulta = "UPDATE clientes SET meses_pagados = " + String.valueOf(mesesPagados) 
                 + ", monto_restante = " + montoRestante + " WHERE Id = " + cliente.getId();
         } else {
+            if (JOptionPane.showConfirmDialog(
+                    this, "Este cliente a pagado la totalidad del prestamo, ¿Desea generar el formato de deuda liquidada?", "",
+                    JOptionPane.YES_NO_OPTION) == 0) {
+                    new FormatoDeDeudaLiquidada(cliente).setVisible(true);
+
+                
+            }
             consulta = "UPDATE clientes SET deuda_total = 0, meses_pagados = 0"
                 + ", monto_restante = 0, tiempo_prestamo = 0" + " WHERE Id = " + cliente.getId();;
         }
