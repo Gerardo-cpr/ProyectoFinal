@@ -278,7 +278,7 @@ public class VentanaCliente extends javax.swing.JFrame {
             if (JOptionPane.showConfirmDialog(
                     this, "Este cliente a pagado la totalidad del prestamo, ¿Desea generar el formato de deuda liquidada?", "",
                     JOptionPane.YES_NO_OPTION) == 0) {
-                    new FormatoDeDeudaLiquidada(cliente).setVisible(true);
+                    new FormatoDeDeudaLiquidada(cliente, menuPrincipal).setVisible(true);
 
                 
             }

@@ -15,9 +15,16 @@ import javax.swing.filechooser.FileFilter;
  *
  * @author gerardo
  */
+
+enum tipoDeOperacion {
+    GUARDAR_EN_TABLA, GUARDAR_FORMATO_DEUDA_LIQUIDADA
+}
+
 public class ElegirUbicacion extends javax.swing.JFrame {
-    MenuPrincipal menuPrincipal;
-    public ElegirUbicacion(MenuPrincipal menuPrincipal) {
+    private MenuPrincipal menuPrincipal;
+    private tipoDeOperacion tipo;
+    private Cliente cliente;
+    public ElegirUbicacion(MenuPrincipal menuPrincipal, tipoDeOperacion tipo) {
         initComponents();
         setLocationRelativeTo(menuPrincipal);
         FileFilter pdfFilter = new FileFilter() {
@@ -31,6 +38,24 @@ public class ElegirUbicacion extends javax.swing.JFrame {
         fileChooser.setFileFilter(pdfFilter);
         
         this.menuPrincipal = menuPrincipal;
+        this.tipo = tipo;
+    }
+    public ElegirUbicacion(MenuPrincipal menuPrincipal, tipoDeOperacion tipo, Cliente cliente) {
+        initComponents();
+        setLocationRelativeTo(menuPrincipal);
+        FileFilter pdfFilter = new FileFilter() {
+           public boolean accept(File file) {
+               return file.getName().endsWith(".pdf");
+           }
+           public String getDescription() {
+               return "Archivos PDF";
+           }
+        };
+        fileChooser.setFileFilter(pdfFilter);
+        
+        this.menuPrincipal = menuPrincipal;
+        this.tipo = tipo;
+        this.cliente = cliente;
     }
 
     /**
@@ -85,7 +110,11 @@ public class ElegirUbicacion extends javax.swing.JFrame {
         //Si se hizo click en guardar
         if (evt.paramString().contains("ApproveSelection")) {
             if (fileChooser.getSelectedFile().getAbsolutePath().endsWith(".pdf") ) {
-                menuPrincipal.guardarTablaEnPdf(fileChooser.getSelectedFile().getAbsolutePath());
+                if (tipo == tipo.GUARDAR_EN_TABLA) {
+                    menuPrincipal.guardarTablaEnPdf(fileChooser.getSelectedFile().getAbsolutePath());
+                } else {
+                    menuPrincipal.guardarFormatoDeudaLiquidadaPdf(fileChooser.getSelectedFile().getAbsolutePath(), cliente);
+                }
                 this.dispose();
             } else {
                 JOptionPane.showMessageDialog(this, "El archivo deberia terminar .pdf", "Error", JOptionPane.ERROR_MESSAGE);

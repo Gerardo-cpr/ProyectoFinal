@@ -362,7 +362,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_jTextField1ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        new ElegirUbicacion(this).setVisible(true);
+        new ElegirUbicacion(this, tipoDeOperacion.GUARDAR_EN_TABLA).setVisible(true);
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
@@ -385,7 +385,13 @@ public class MenuPrincipal extends javax.swing.JFrame {
     public void guardarTablaEnPdf(String nombreDelArchivo) {
         if (PDF.guardarEnArchivo(nombreDelArchivo, clientes)) {
         } else {
-            System.out.println("Error");
+            new JOptionPane("Error al guardar el archivo");
+        }
+    }
+    public void guardarFormatoDeudaLiquidadaPdf(String nombreArchivo, Cliente cliente) {
+        if (PDF.guardarFormatoDeudaLiquidada(nombreArchivo, cliente)) {
+        } else {
+            new JOptionPane("Error al guardar el archivo");
         }
     }
 

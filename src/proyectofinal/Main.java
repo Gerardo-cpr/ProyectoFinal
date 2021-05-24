@@ -3,6 +3,8 @@ package proyectofinal;
 public class Main {
 
     public static void main(String[] args) {
+            System.out.println("Working Directory = " + System.getProperty("user.dir"));
+
          try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
                 if ("Windows".equals(info.getName())) {
