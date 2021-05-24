@@ -64,14 +64,14 @@ public class VentanaCliente extends javax.swing.JFrame {
         lblTiempoPrestamo = new javax.swing.JLabel();
         lblTotalPagado = new javax.swing.JLabel();
         lblRestante = new javax.swing.JLabel();
-        pAbonar = new javax.swing.JPanel();
+        pnlAbonar = new javax.swing.JPanel();
         lblRestanteConAbono = new javax.swing.JLabel();
         btnPagar = new javax.swing.JToggleButton();
         cbMesesAbonar = new javax.swing.JComboBox<>();
         lblMesesAPagar = new javax.swing.JLabel();
         lblAbonar = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        btnBorrar = new javax.swing.JButton();
+        btnHistorial = new javax.swing.JButton();
         lblTotalPrestado = new javax.swing.JLabel();
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -127,15 +127,15 @@ public class VentanaCliente extends javax.swing.JFrame {
         lblMesesAPagar.setFont(new java.awt.Font("Helvetica Neue", 0, 18)); // NOI18N
         lblMesesAPagar.setText("Meses a pagar");
 
-        javax.swing.GroupLayout pAbonarLayout = new javax.swing.GroupLayout(pAbonar);
-        pAbonar.setLayout(pAbonarLayout);
-        pAbonarLayout.setHorizontalGroup(
-            pAbonarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pAbonarLayout.createSequentialGroup()
+        javax.swing.GroupLayout pnlAbonarLayout = new javax.swing.GroupLayout(pnlAbonar);
+        pnlAbonar.setLayout(pnlAbonarLayout);
+        pnlAbonarLayout.setHorizontalGroup(
+            pnlAbonarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlAbonarLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(lblRestanteConAbono)
                 .addGap(84, 84, 84))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pAbonarLayout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlAbonarLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(lblMesesAPagar)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -144,11 +144,11 @@ public class VentanaCliente extends javax.swing.JFrame {
                 .addComponent(btnPagar, javax.swing.GroupLayout.DEFAULT_SIZE, 146, Short.MAX_VALUE)
                 .addContainerGap())
         );
-        pAbonarLayout.setVerticalGroup(
-            pAbonarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pAbonarLayout.createSequentialGroup()
+        pnlAbonarLayout.setVerticalGroup(
+            pnlAbonarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlAbonarLayout.createSequentialGroup()
                 .addGap(35, 35, 35)
-                .addGroup(pAbonarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(pnlAbonarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(cbMesesAbonar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblMesesAPagar)
                     .addComponent(btnPagar))
@@ -161,17 +161,17 @@ public class VentanaCliente extends javax.swing.JFrame {
         lblAbonar.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblAbonar.setText("Abonar");
 
-        jButton1.setText("Borrar cliente");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btnBorrar.setText("Borrar cliente");
+        btnBorrar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btnBorrarActionPerformed(evt);
             }
         });
 
-        jButton2.setText("Ver historial de pagos");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        btnHistorial.setText("Ver historial de pagos");
+        btnHistorial.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                btnHistorialActionPerformed(evt);
             }
         });
 
@@ -196,16 +196,16 @@ public class VentanaCliente extends javax.swing.JFrame {
                             .addComponent(lblTotalPrestado, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGap(83, 83, 83))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(pAbonar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(pnlAbonar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addContainerGap())
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(lblAbonar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addContainerGap())
                     .addGroup(layout.createSequentialGroup()
                         .addGap(38, 38, 38)
-                        .addComponent(jButton1)
+                        .addComponent(btnBorrar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnHistorial, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(48, 48, 48))))
         );
         layout.setVerticalGroup(
@@ -226,11 +226,11 @@ public class VentanaCliente extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(lblAbonar)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(pAbonar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(pnlAbonar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
-                    .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(btnBorrar)
+                    .addComponent(btnHistorial, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(21, 21, 21))
         );
 
@@ -254,7 +254,7 @@ public class VentanaCliente extends javax.swing.JFrame {
         
     }//GEN-LAST:event_cbMesesAbonarItemStateChanged
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void btnBorrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBorrarActionPerformed
         try {
             BaseDeDatos db = new BaseDeDatos();
             int id=cliente.getId();
@@ -270,7 +270,7 @@ public class VentanaCliente extends javax.swing.JFrame {
             ex.printStackTrace();
             JOptionPane.showMessageDialog(this, "Error al borrar cliente", "Error", JOptionPane.ERROR_MESSAGE);
         }
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_btnBorrarActionPerformed
 
     private void btnPagarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPagarActionPerformed
         int mesesAPagar = cbMesesAbonar.getSelectedIndex() + 1;
@@ -298,9 +298,9 @@ public class VentanaCliente extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_btnPagarActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void btnHistorialActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHistorialActionPerformed
         new HistorialCliente(parent, cliente, menuPrincipal).setVisible(true);
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_btnHistorialActionPerformed
     private void RegistrarPago(int montoapagar){
         try {
             BaseDeDatos db = new BaseDeDatos();
@@ -316,10 +316,10 @@ public class VentanaCliente extends javax.swing.JFrame {
         }
 }
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnBorrar;
+    private javax.swing.JButton btnHistorial;
     private javax.swing.JToggleButton btnPagar;
     private javax.swing.JComboBox<String> cbMesesAbonar;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JLabel lblAbonar;
     private javax.swing.JLabel lblMesesAPagar;
@@ -330,6 +330,6 @@ public class VentanaCliente extends javax.swing.JFrame {
     private javax.swing.JLabel lblTiempoPrestamo;
     private javax.swing.JLabel lblTotalPagado;
     private javax.swing.JLabel lblTotalPrestado;
-    private javax.swing.JPanel pAbonar;
+    private javax.swing.JPanel pnlAbonar;
     // End of variables declaration//GEN-END:variables
 }

@@ -26,7 +26,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
     public MenuPrincipal(int encargadoId) {
         initComponents();
         this.setLocationRelativeTo(null);
-        jPanel1.setVisible(false);
+        pnlBuscar.setVisible(false);
         this.encargadoId = encargadoId;
         clientes = new ArrayList<>();
     }
@@ -71,25 +71,25 @@ public class MenuPrincipal extends javax.swing.JFrame {
         jMenu8 = new javax.swing.JMenu();
         jMenu9 = new javax.swing.JMenu();
         jMenuItem4 = new javax.swing.JMenuItem();
-        jLabel1 = new javax.swing.JLabel();
+        lblPrestamos = new javax.swing.JLabel();
         lblCargando = new javax.swing.JLabel();
-        panelTabla = new javax.swing.JPanel();
+        pnlTabla = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         tablaDeudores = new javax.swing.JTable();
         barraDeProgreso = new javax.swing.JProgressBar();
-        jButton1 = new javax.swing.JButton();
-        jPanel1 = new javax.swing.JPanel();
-        jTextField1 = new javax.swing.JTextField();
-        jButton2 = new javax.swing.JButton();
-        jMenuBar1 = new javax.swing.JMenuBar();
-        jMenu7 = new javax.swing.JMenu();
+        btnGuardarPDF = new javax.swing.JButton();
+        pnlBuscar = new javax.swing.JPanel();
+        txfBuscar = new javax.swing.JTextField();
+        btnBuscar = new javax.swing.JButton();
+        mnuOpciones = new javax.swing.JMenuBar();
+        mniSesion = new javax.swing.JMenu();
         menuCerrarSesion = new javax.swing.JMenuItem();
-        jMenu1 = new javax.swing.JMenu();
-        jMenuItem1 = new javax.swing.JMenuItem();
-        jMenu10 = new javax.swing.JMenu();
-        jCheckBoxMenuItem2 = new javax.swing.JCheckBoxMenuItem();
-        jMenuItem6 = new javax.swing.JMenuItem();
-        jMenuItem2 = new javax.swing.JMenuItem();
+        mniPrestamos = new javax.swing.JMenu();
+        mnuCrearPrestamo = new javax.swing.JMenuItem();
+        mniCliente = new javax.swing.JMenu();
+        mbxBuscar = new javax.swing.JCheckBoxMenuItem();
+        mniCrear = new javax.swing.JMenuItem();
+        mniActualizar = new javax.swing.JMenuItem();
 
         jMenu3.setText("File");
         jMenuBar2.add(jMenu3);
@@ -120,9 +120,9 @@ public class MenuPrincipal extends javax.swing.JFrame {
             }
         });
 
-        jLabel1.setFont(new java.awt.Font("Verdana", 1, 24)); // NOI18N
-        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("Prestamos");
+        lblPrestamos.setFont(new java.awt.Font("Verdana", 1, 24)); // NOI18N
+        lblPrestamos.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblPrestamos.setText("Prestamos");
 
         lblCargando.setFont(new java.awt.Font("Verdana", 0, 11)); // NOI18N
         lblCargando.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -166,75 +166,75 @@ public class MenuPrincipal extends javax.swing.JFrame {
         });
         jScrollPane2.setViewportView(tablaDeudores);
 
-        jButton1.setText("Guardar tabla en pdf");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btnGuardarPDF.setText("Guardar tabla en pdf");
+        btnGuardarPDF.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btnGuardarPDFActionPerformed(evt);
             }
         });
 
-        javax.swing.GroupLayout panelTablaLayout = new javax.swing.GroupLayout(panelTabla);
-        panelTabla.setLayout(panelTablaLayout);
-        panelTablaLayout.setHorizontalGroup(
-            panelTablaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        javax.swing.GroupLayout pnlTablaLayout = new javax.swing.GroupLayout(pnlTabla);
+        pnlTabla.setLayout(pnlTablaLayout);
+        pnlTablaLayout.setHorizontalGroup(
+            pnlTablaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 1049, Short.MAX_VALUE)
-            .addGroup(panelTablaLayout.createSequentialGroup()
+            .addGroup(pnlTablaLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jButton1)
+                .addComponent(btnGuardarPDF)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelTablaLayout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlTablaLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(barraDeProgreso, javax.swing.GroupLayout.PREFERRED_SIZE, 793, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(65, 65, 65))
         );
-        panelTablaLayout.setVerticalGroup(
-            panelTablaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelTablaLayout.createSequentialGroup()
+        pnlTablaLayout.setVerticalGroup(
+            pnlTablaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlTablaLayout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
                 .addComponent(barraDeProgreso, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(14, 14, 14)
-                .addComponent(jButton1)
+                .addComponent(btnGuardarPDF)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 415, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
-        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+        txfBuscar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField1ActionPerformed(evt);
+                txfBuscarActionPerformed(evt);
             }
         });
 
-        jButton2.setText("Buscar");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        btnBuscar.setText("Buscar");
+        btnBuscar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                btnBuscarActionPerformed(evt);
             }
         });
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
+        javax.swing.GroupLayout pnlBuscarLayout = new javax.swing.GroupLayout(pnlBuscar);
+        pnlBuscar.setLayout(pnlBuscarLayout);
+        pnlBuscarLayout.setHorizontalGroup(
+            pnlBuscarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlBuscarLayout.createSequentialGroup()
                 .addGap(87, 87, 87)
-                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 539, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(txfBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 539, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(47, 47, 47)
-                .addComponent(jButton2)
+                .addComponent(btnBuscar)
                 .addContainerGap(66, Short.MAX_VALUE))
         );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
+        pnlBuscarLayout.setVerticalGroup(
+            pnlBuscarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlBuscarLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.DEFAULT_SIZE, 32, Short.MAX_VALUE)
-                    .addComponent(jButton2))
+                .addGroup(pnlBuscarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txfBuscar, javax.swing.GroupLayout.DEFAULT_SIZE, 32, Short.MAX_VALUE)
+                    .addComponent(btnBuscar))
                 .addContainerGap())
         );
 
-        jMenu7.setText("Sesión");
-        jMenu7.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
+        mniSesion.setText("Sesión");
+        mniSesion.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
 
         menuCerrarSesion.setText("Cerrar sesión");
         menuCerrarSesion.addActionListener(new java.awt.event.ActionListener() {
@@ -242,100 +242,100 @@ public class MenuPrincipal extends javax.swing.JFrame {
                 menuCerrarSesionActionPerformed(evt);
             }
         });
-        jMenu7.add(menuCerrarSesion);
+        mniSesion.add(menuCerrarSesion);
 
-        jMenuBar1.add(jMenu7);
+        mnuOpciones.add(mniSesion);
 
-        jMenu1.setText("Prestamos");
-        jMenu1.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
+        mniPrestamos.setText("Prestamos");
+        mniPrestamos.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
 
-        jMenuItem1.setText("Crear nuevo prestamo");
-        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+        mnuCrearPrestamo.setText("Crear nuevo prestamo");
+        mnuCrearPrestamo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem1ActionPerformed(evt);
+                mnuCrearPrestamoActionPerformed(evt);
             }
         });
-        jMenu1.add(jMenuItem1);
+        mniPrestamos.add(mnuCrearPrestamo);
 
-        jMenuBar1.add(jMenu1);
+        mnuOpciones.add(mniPrestamos);
 
-        jMenu10.setText("Cliente");
-        jMenu10.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
+        mniCliente.setText("Cliente");
+        mniCliente.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
 
-        jCheckBoxMenuItem2.setText("Buscar");
-        jCheckBoxMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+        mbxBuscar.setText("Buscar");
+        mbxBuscar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jCheckBoxMenuItem2ActionPerformed(evt);
+                mbxBuscarActionPerformed(evt);
             }
         });
-        jMenu10.add(jCheckBoxMenuItem2);
+        mniCliente.add(mbxBuscar);
 
-        jMenuItem6.setText("Crear");
-        jMenuItem6.addActionListener(new java.awt.event.ActionListener() {
+        mniCrear.setText("Crear");
+        mniCrear.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem6ActionPerformed(evt);
+                mniCrearActionPerformed(evt);
             }
         });
-        jMenu10.add(jMenuItem6);
+        mniCliente.add(mniCrear);
 
-        jMenuItem2.setText("Actualizar");
-        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+        mniActualizar.setText("Actualizar");
+        mniActualizar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem2ActionPerformed(evt);
+                mniActualizarActionPerformed(evt);
             }
         });
-        jMenu10.add(jMenuItem2);
+        mniCliente.add(mniActualizar);
 
-        jMenuBar1.add(jMenu10);
+        mnuOpciones.add(mniCliente);
 
-        setJMenuBar(jMenuBar1);
+        setJMenuBar(mnuOpciones);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(lblPrestamos, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(lblCargando, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(pnlBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(49, 49, 49))
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(panelTabla, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(pnlTabla, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(22, 22, 22)
-                .addComponent(jLabel1)
+                .addComponent(lblPrestamos)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(lblCargando, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(pnlBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(panelTabla, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(pnlTabla, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+    private void mnuCrearPrestamoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuCrearPrestamoActionPerformed
         this.setEnabled(false);
         new CrearPrestamo(clientes, this).setVisible(true);
-    }//GEN-LAST:event_jMenuItem1ActionPerformed
+    }//GEN-LAST:event_mnuCrearPrestamoActionPerformed
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
        actualizarTabla();
     }//GEN-LAST:event_formWindowOpened
 
-    private void jMenuItem6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem6ActionPerformed
+    private void mniCrearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniCrearActionPerformed
         this.setEnabled(false);
         this.setAlwaysOnTop(false);
         new CrearCliente(this, encargadoId, clientes, this, barraDeProgreso).setVisible(true);
-    }//GEN-LAST:event_jMenuItem6ActionPerformed
+    }//GEN-LAST:event_mniCrearActionPerformed
 
     private void menuCerrarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuCerrarSesionActionPerformed
         this.dispose();
@@ -357,31 +357,31 @@ public class MenuPrincipal extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_tablaDeudoresMouseClicked
 
-    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
-        jButton2ActionPerformed(null);
-    }//GEN-LAST:event_jTextField1ActionPerformed
+    private void txfBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txfBuscarActionPerformed
+        btnBuscarActionPerformed(null);
+    }//GEN-LAST:event_txfBuscarActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void btnGuardarPDFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarPDFActionPerformed
         new ElegirUbicacion(this, tipoDeOperacion.GUARDAR_EN_TABLA).setVisible(true);
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_btnGuardarPDFActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        String busqueda =jTextField1.getText();
+    private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
+        String busqueda =txfBuscar.getText();
         AsyncMainTableRefresh.busquedadb(encargadoId, busqueda);
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_btnBuscarActionPerformed
 
-    private void jCheckBoxMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBoxMenuItem2ActionPerformed
-        if(jCheckBoxMenuItem2.getState() == true){
-            jPanel1.setVisible(true);
+    private void mbxBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mbxBuscarActionPerformed
+        if(mbxBuscar.getState() == true){
+            pnlBuscar.setVisible(true);
         }else{
-            jPanel1.setVisible(false);
+            pnlBuscar.setVisible(false);
         }
-    }//GEN-LAST:event_jCheckBoxMenuItem2ActionPerformed
+    }//GEN-LAST:event_mbxBuscarActionPerformed
 
-    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
+    private void mniActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniActualizarActionPerformed
         AsyncMainTableRefresh.recargardb();
-        jTextField1.setText("");
-    }//GEN-LAST:event_jMenuItem2ActionPerformed
+        txfBuscar.setText("");
+    }//GEN-LAST:event_mniActualizarActionPerformed
     public void guardarTablaEnPdf(String nombreDelArchivo) {
         if (PDF.guardarEnArchivo(nombreDelArchivo, clientes)) {
         } else {
@@ -397,33 +397,33 @@ public class MenuPrincipal extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public javax.swing.JProgressBar barraDeProgreso;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
+    private javax.swing.JButton btnBuscar;
+    private javax.swing.JButton btnGuardarPDF;
     private javax.swing.JCheckBoxMenuItem jCheckBoxMenuItem1;
-    private javax.swing.JCheckBoxMenuItem jCheckBoxMenuItem2;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JMenu jMenu1;
-    private javax.swing.JMenu jMenu10;
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenu jMenu4;
     private javax.swing.JMenu jMenu5;
-    private javax.swing.JMenu jMenu7;
     private javax.swing.JMenu jMenu8;
     private javax.swing.JMenu jMenu9;
-    private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuBar jMenuBar2;
     private javax.swing.JMenuBar jMenuBar3;
-    private javax.swing.JMenuItem jMenuItem1;
-    private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;
-    private javax.swing.JMenuItem jMenuItem6;
-    private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTextField jTextField1;
     private javax.swing.JLabel lblCargando;
+    private javax.swing.JLabel lblPrestamos;
+    private javax.swing.JCheckBoxMenuItem mbxBuscar;
     private javax.swing.JMenuItem menuCerrarSesion;
-    private javax.swing.JPanel panelTabla;
+    private javax.swing.JMenuItem mniActualizar;
+    private javax.swing.JMenu mniCliente;
+    private javax.swing.JMenuItem mniCrear;
+    private javax.swing.JMenu mniPrestamos;
+    private javax.swing.JMenu mniSesion;
+    private javax.swing.JMenuItem mnuCrearPrestamo;
+    private javax.swing.JMenuBar mnuOpciones;
+    private javax.swing.JPanel pnlBuscar;
+    private javax.swing.JPanel pnlTabla;
     private javax.swing.JTable tablaDeudores;
+    private javax.swing.JTextField txfBuscar;
     // End of variables declaration//GEN-END:variables
 }

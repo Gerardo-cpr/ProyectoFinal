@@ -33,12 +33,12 @@ public class CrearPrestamo extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel1 = new javax.swing.JLabel();
+        lblPrestamo = new javax.swing.JLabel();
         cbxClientes = new javax.swing.JComboBox<>();
         lblCliente = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
+        lblCantidad = new javax.swing.JLabel();
         btnPrestar = new javax.swing.JButton();
-        jLabel3 = new javax.swing.JLabel();
+        lblTiempoPrestamo = new javax.swing.JLabel();
         cbxTiempoPrestamo = new javax.swing.JComboBox<>();
         tbxCantidad = new javax.swing.JTextField();
 
@@ -50,13 +50,13 @@ public class CrearPrestamo extends javax.swing.JFrame {
             }
         });
 
-        jLabel1.setFont(new java.awt.Font("Verdana", 0, 18)); // NOI18N
-        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("Conceder prestamo");
+        lblPrestamo.setFont(new java.awt.Font("Verdana", 0, 18)); // NOI18N
+        lblPrestamo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblPrestamo.setText("Conceder prestamo");
 
         lblCliente.setText("Cliente");
 
-        jLabel2.setText("Cantidad");
+        lblCantidad.setText("Cantidad");
 
         btnPrestar.setText("Prestar");
         btnPrestar.addActionListener(new java.awt.event.ActionListener() {
@@ -65,7 +65,7 @@ public class CrearPrestamo extends javax.swing.JFrame {
             }
         });
 
-        jLabel3.setText("Tiempo de prestamo");
+        lblTiempoPrestamo.setText("Tiempo de prestamo");
 
         cbxTiempoPrestamo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1 mes", "2 meses", "6 meses", "12 meses" }));
 
@@ -84,12 +84,12 @@ public class CrearPrestamo extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(lblPrestamo, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(18, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel3)
-                    .addComponent(jLabel2)
+                    .addComponent(lblTiempoPrestamo)
+                    .addComponent(lblCantidad)
                     .addComponent(lblCliente))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -105,7 +105,7 @@ public class CrearPrestamo extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(23, 23, 23)
-                .addComponent(jLabel1)
+                .addComponent(lblPrestamo)
                 .addGap(45, 45, 45)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(cbxClientes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -113,10 +113,10 @@ public class CrearPrestamo extends javax.swing.JFrame {
                 .addGap(33, 33, 33)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(cbxTiempoPrestamo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel3))
+                    .addComponent(lblTiempoPrestamo))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
+                    .addComponent(lblCantidad)
                     .addComponent(tbxCantidad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 14, Short.MAX_VALUE)
                 .addComponent(btnPrestar)
@@ -205,10 +205,10 @@ public class CrearPrestamo extends javax.swing.JFrame {
     private javax.swing.JButton btnPrestar;
     private javax.swing.JComboBox<String> cbxClientes;
     private javax.swing.JComboBox<String> cbxTiempoPrestamo;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel lblCantidad;
     private javax.swing.JLabel lblCliente;
+    private javax.swing.JLabel lblPrestamo;
+    private javax.swing.JLabel lblTiempoPrestamo;
     private javax.swing.JTextField tbxCantidad;
     // End of variables declaration//GEN-END:variables
 }

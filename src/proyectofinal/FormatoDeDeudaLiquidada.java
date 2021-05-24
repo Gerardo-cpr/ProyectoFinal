@@ -34,7 +34,7 @@ public class FormatoDeDeudaLiquidada extends javax.swing.JFrame {
         lblTotalPrestamo = new javax.swing.JLabel();
         lblPlazo = new javax.swing.JLabel();
         lblF = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
+        btnGuardarPDF = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -54,10 +54,10 @@ public class FormatoDeDeudaLiquidada extends javax.swing.JFrame {
         lblF.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblF.setText("El cliente cliente ha liquidado toda su deuda.");
 
-        jButton1.setText("Guardar en pdf");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btnGuardarPDF.setText("Guardar en pdf");
+        btnGuardarPDF.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btnGuardarPDFActionPerformed(evt);
             }
         });
 
@@ -71,7 +71,7 @@ public class FormatoDeDeudaLiquidada extends javax.swing.JFrame {
             .addComponent(lblF, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 399, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
                 .addGap(139, 139, 139)
-                .addComponent(jButton1)
+                .addComponent(btnGuardarPDF)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -86,16 +86,16 @@ public class FormatoDeDeudaLiquidada extends javax.swing.JFrame {
                 .addGap(48, 48, 48)
                 .addComponent(lblF)
                 .addGap(18, 18, 18)
-                .addComponent(jButton1)
+                .addComponent(btnGuardarPDF)
                 .addContainerGap(32, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void btnGuardarPDFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarPDFActionPerformed
         new ElegirUbicacion(menuPrincipal, tipoDeOperacion.GUARDAR_FORMATO_DEUDA_LIQUIDADA, cliente).setVisible(true);
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_btnGuardarPDFActionPerformed
 
     /**
      * @param args the command line arguments
@@ -103,7 +103,7 @@ public class FormatoDeDeudaLiquidada extends javax.swing.JFrame {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton btnGuardarPDF;
     private javax.swing.JLabel lblF;
     private javax.swing.JLabel lblNombre;
     private javax.swing.JLabel lblPlazo;
