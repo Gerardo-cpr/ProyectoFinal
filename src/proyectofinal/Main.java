@@ -13,6 +13,10 @@ public class Main {
                 }
                 if ("Mac OS X".equals(info.getName())) {
                      javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                     break;
+                }
+                if ("Nimbus".equals(info.getName())) {
+                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
                 }
             }
         } catch (ClassNotFoundException ex) {
